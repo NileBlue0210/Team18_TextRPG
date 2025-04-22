@@ -116,7 +116,7 @@ namespace Sparta_Team18_TextRPG
                 return;
             }
 
-            if (monsterList[chooseNum].monsterState == MonsterStatus.Die)
+            if (monsterList[chooseNum].Status == MonsterStatus.Die)
             {
                 Console.WriteLine($"{monsterList[chooseNum].Name}(은)는 이미 쓰러진 상태입니다. 다른 공격대상을 선택해주세요).");
 
@@ -141,7 +141,7 @@ namespace Sparta_Team18_TextRPG
                 if (targetMonster.Health <= 0)
                 {
                     targetMonster.Health = 0; // 에러 대비 체력이 음수라도 0으로 고정
-                    targetMonster.MonsterDie();
+                    targetMonster.MonsterDie(targetMonster);
 
                     Console.WriteLine($"{targetMonster.Name}(을)를 처치했습니다.");
                 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-enum MonsterStatus
+public enum MonsterStatus
 {
     Normal,
     Die,
@@ -19,12 +19,14 @@ namespace Sparta_Team18_TextRPG
         public string Name { get; set; }
         public float Health { get; set; }
         public float Attack { get; set; }
+        public MonsterStatus Status { get; set; }
 
-        public Monster(string name, int health,  int attack  )
+        public Monster(string name, int health,  int attack, MonsterStatus status  )
         {
             Name = name;
             Health = health;
             Attack = attack;
+            Status = status;
         }
 
         public void ShowInfo()
@@ -43,9 +45,9 @@ namespace Sparta_Team18_TextRPG
 
         // 체력 표시 부분을 Dead로 표시
         // 몬스터 텍스트 색 변경: 회색
-        //public void MonsterDie()
-        //{
-        //    monsterState = MonsterStatus.Die;
-        //}
+        public void MonsterDie(Monster monster)
+        {
+            monster.Status = MonsterStatus.Die;
+        }
     }
 }

@@ -21,7 +21,6 @@ namespace Sparta_Team18_TextRPG
             { "  사냥꾼  ", (50, 80, 15, 25) },
             { "  암살자  ", (50, 80, 15, 25) },
             { " 흑마법사 ", (70, 110, 20, 30) },
-
         };
         public static List<Monster> CreateRandomMonster()
         {
@@ -39,7 +38,7 @@ namespace Sparta_Team18_TextRPG
                     int health = random.Next(stats.minHealth, stats.maxHealth + 1);
                     int attack = random.Next(stats.minAttack, stats.maxAttack + 1);
 
-                    monsters.Add(new Monster(name, health, attack));
+                    monsters.Add(new Monster(name, health, attack, MonsterStatus.Normal));
                 }
             }
             return monsters; // 리스트로 monsters 값 반환

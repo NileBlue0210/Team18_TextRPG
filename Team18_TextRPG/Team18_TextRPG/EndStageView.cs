@@ -23,6 +23,7 @@ namespace EndStageView
             Console.WriteLine("0.다음");
 
             string input = Console.ReadLine();
+            /*
             switch (input)
             {
                 case "0":
@@ -32,6 +33,7 @@ namespace EndStageView
                     Console.WriteLine("잘못된 입력입니다..");
                     continue;
             }
+            */
         }
     }
 }

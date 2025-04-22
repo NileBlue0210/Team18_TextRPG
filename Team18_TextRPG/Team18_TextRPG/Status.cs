@@ -12,8 +12,9 @@ namespace Sparta_Team18_TextRPG
         public void ShowStat()
         {
             Player player = new Player();
+            ConvertClassCode convertClassCode = new ConvertClassCode();
 
-            string className = player.ConvertClassCodeToString(player.ClassCode);
+            string className = convertClassCode.ConvertClassCodeToString(player.ClassCode);
 
             Console.WriteLine(" [상태보기] ");
             Console.WriteLine("\n 캐릭터의 정보가 표시됩니다. ");

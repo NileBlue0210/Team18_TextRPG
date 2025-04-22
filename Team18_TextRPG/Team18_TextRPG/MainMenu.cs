@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Team18_TextRPG
+namespace Sparta_Team18_TextRPG
 {
     internal class MainMenu
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+
     }
 }

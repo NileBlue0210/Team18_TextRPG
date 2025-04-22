@@ -25,18 +25,22 @@ namespace Sparta_Team18_TextRPG
         }
 
         // 플레이어 입력이 숫자인지 검사하고, 숫자일 경우 int로 변환
-        public bool CheckAndConvertUserInput(string userInput)
+        public int CheckAndConvertUserInput(string userInput)
         {
-            bool result = false;
+            int result = 0;
 
             // 숫자 입력 여부 검사
             if (int.TryParse(userInput, out int number))
             {
-                result = true;
+                result = int.Parse(userInput);
             }
+            else
+            {
+                result = -1;
 
-            // to do: else일 경우 여기서 처리할 것
-            //  에러 메세지 출력용 클래스를 만들어서 에러메세지를 출력하도록 하는 게 좋을 것 같다
+                //  에러 메세지 출력용 클래스를 만들어서 에러메세지를 출력하도록 하는 게 좋을 것 같다
+                Console.WriteLine("잘못된 선택입니다. 숫자를 입력해주세요");
+            }
 
             return result;
         }

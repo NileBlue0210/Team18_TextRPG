@@ -9,7 +9,7 @@ namespace Sparta_Team18_TextRPG
     public class MainMenu
     {// 완전 신나
 
-        public void DisplayMainMenu()
+        public void Nickname()
         {
             Status status = new Status();//상태창 스크립트 연결 필요###########################################상태창 스크립트 클래스 이름 Status에 덮어씌우기
             Battle battle = new Battle();//전투창 스크립트 연결 필요###########################################전투창 스크립트 클래스 이름 Battle에 덮어씌우기
@@ -46,7 +46,22 @@ namespace Sparta_Team18_TextRPG
                         break;
                 }
 
-            } while (StartAnswer != "1" && StartAnswer != "2");
+            } while (StartAnswer != "1" || StartAnswer != "2");
+        }
+
+        public void DisplayMainMenu()
+        {
+            string CheckAnswer;
+            string NameAnswer;
+            Console.Write("스파르타 던전에 오신 여러분 환영합니다.\n");
+            Console.Write("원하시는 이름을 설정해 주세요.\n");
+            Console.Write(">>");
+            NameAnswer = Console.ReadLine();
+            Console.Write($"({NameAnswer}) 이 이름으로 하시겠습니까?\n\n1.확정\n2.취소 \n >>");
+            CheckAnswer = Console.ReadLine();
+            
+
+
         }
     }
 }

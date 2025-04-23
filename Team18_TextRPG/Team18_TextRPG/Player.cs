@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -148,6 +149,18 @@ namespace Sparta_Team18_TextRPG
 
             Console.WriteLine("플레이어가 사망했습니다.");
             // to do: 플레이어 사망 처리 추가
+        }
+
+        public void ShowPlayerInfo()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("\n+================================+\n");
+            Console.WriteLine("[내 정보]\n");
+            Console.Write($"Lv. {this.PlayerLevel} ");
+            Console.Write($"이름: {this.Name} ");
+            Console.WriteLine($"({this.ClassCode})\n");
+            Console.WriteLine($"체력: {this.Health}\n");
+            Console.WriteLine("+--------------------------------+\n");
         }
     }
 }

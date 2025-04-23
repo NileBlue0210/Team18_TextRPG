@@ -60,19 +60,6 @@ namespace Sparta_Team18_TextRPG
         MainMenu mainMenu = new MainMenu();
         private List<Monster> monsters = new List<Monster>();
 
-        
-
-        public void PlayerInfo()
-        {
-            Console.WriteLine("\n");
-            Console.WriteLine("\n+================================+\n");
-            Console.WriteLine("[내 정보]\n");
-            Console.Write($"Lv. {player.PlayerLevel} ");
-            Console.Write($"이름: {player.Name} ");
-            Console.WriteLine($"({player.ClassCode})\n");
-            Console.WriteLine($"체력: {player.Health}\n");
-            Console.WriteLine("+--------------------------------+\n");
-        }
         public void BattleStart()
         {
             
@@ -83,7 +70,9 @@ namespace Sparta_Team18_TextRPG
             {
                 Console.WriteLine($"- {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
             }
-            PlayerInfo();
+
+            player.ShowPlayerInfo();
+
             Console.WriteLine("전투 개시");
             Console.WriteLine("전투를 시작합니다.");
             Console.WriteLine("1. 전투 시작");
@@ -126,7 +115,9 @@ namespace Sparta_Team18_TextRPG
                 {
                     BattleEnd();
                 }
-                PlayerInfo();
+
+                player.ShowPlayerInfo();
+
                 Console.WriteLine("공격할 몬스터를 선택하세요!");
                 Console.WriteLine("0.도망가기");
                 Console.Write(">> ");

@@ -2,7 +2,7 @@
 
 namespace EndStageView
 {
-    internal class EndStageView
+    public class EndStageView
     {
         static void EndStage()
         {

@@ -127,42 +127,40 @@ namespace Sparta_Team18_TextRPG
         {
             Console.Clear();
             Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
+            Console.WriteLine($"\n[ 적 무리 ]");
+            Console.WriteLine("공격할 몬스터를 선택하세요!\n");
             while (monsters.Count > 0)
             {
-                Console.Clear();
                 for (int i = 0; i < monsters.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
                 }
                 PlayerInfo();
-                Console.WriteLine("공격할 몬스터를 선택하세요!");
+                
                 Console.WriteLine("0.페이즈 넘기기");
                 Console.Write(">> ");
 
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
+                switch (input)
                 {
                     case "0":
-                        //Console.Write("도망쳤습니다. 다시 마을로 돌아갑니다.");
-                        Console.Write("페이즈를 넘깁니다.");
-                        Console.ReadLine();
-                        MonsterAttack();
+
                         break;
+                    default:
+                        if (int.TryParse(input, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
+                        {
+                            Monster target = monsters[monsterIndex - 1];
+                            target.Health -= 100;
+                            //target.Health -= player.Attack;
+                            Console.WriteLine($"{target.Name} 공격!");
 
-                    Console.WriteLine($"{target.Name}에게 공격!");
-                    target.Health -= 10;
-
-                            target.Health -= 100; // 전투 테스트 중
-                            Console.WriteLine($"{target.Name}에게 공격!");
                             if (target.Health <= 0)
                             {
                                 Console.WriteLine($"{target.Name}을(를) 처치했다!");
                                 monsters.RemoveAt(monsterIndex - 1);
                             }
-
                             MonsterAttack();
-
-                            if (player.Health <= 0) // 플레이어 
+                            if (player.Health <= 0)
                             {
                                 GameOver();
                                 return;
@@ -183,7 +181,8 @@ namespace Sparta_Team18_TextRPG
             Console.WriteLine($"\n몬스터들의 반격!\n");
             foreach (Monster monster in monsters)
             {
-                if (player.Health <= 0) break;
+                if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
+
                 int damage = (int)monster.Attack;
                 player.Health -= damage;
 
@@ -191,6 +190,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"플레이어 남은 체력: {player.Health}");
                 Console.ReadLine();
             }
+            
         }
 
         private void BattleEnd()

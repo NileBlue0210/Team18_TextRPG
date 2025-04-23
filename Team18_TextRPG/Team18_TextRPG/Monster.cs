@@ -16,13 +16,15 @@ namespace Sparta_Team18_TextRPG
     public class Monster
     {
         // 몬스터 스테이터스 제어용 프로퍼티
+        public int Level { get; set; }
         public string Name { get; set; }
         public float Health { get; set; }
         public float Attack { get; set; }
         public MonsterStatus Status { get; set; }
 
-        public Monster(string name, int health,  int attack, MonsterStatus status  )
+        public Monster(int level, string name, int health,  int attack, MonsterStatus status  )
         {
+            Level = level;
             Name = name;
             Health = health;
             Attack = attack;

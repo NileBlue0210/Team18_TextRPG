@@ -24,26 +24,26 @@ namespace Sparta_Team18_TextRPG
             return result;
         }
 
-        // 플레이어 입력이 숫자인지 검사하고, 숫자일 경우 int로 변환
-        public int CheckAndConvertUserInput(string userInput)
+        // 플레이어 입력이 숫자인지 검사하고, 변환 여부와 변환값을 반환
+        public Dictionary<bool, int> CheckAndConvertUserInput(string userInput)
         {
-            int result = 0;
+            Dictionary<bool, int> resultDictionary = new Dictionary<bool, int>();
 
             // to do: 만약 유저가 음수를 입력할 때를 상정해야함
             // 숫자 입력 여부 검사
             if (int.TryParse(userInput, out int number))
             {
-                result = int.Parse(userInput);
+                resultDictionary.Add(true, number);
             }
             else
             {
-                result = -1;
+                resultDictionary.Add(false, number);
 
                 //  에러 메세지 출력용 클래스를 만들어서 에러메세지를 출력하도록 하는 게 좋을 것 같다
                 Console.WriteLine("잘못된 선택입니다. 숫자를 입력해주세요");
             }
 
-            return result;
+            return resultDictionary;
         }
     }
 }

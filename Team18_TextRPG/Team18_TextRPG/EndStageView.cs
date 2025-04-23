@@ -4,9 +4,8 @@ namespace Sparta_Team18_TextRPG
 {
     public class EndStageView
     {
-        public void EndStage()
+        public void EndStage(Player player)
         {
-            Player player = new Player();
             ConvertClassCode convertClassCode = new ConvertClassCode();
             string result;
 

@@ -156,23 +156,25 @@ namespace Sparta_Team18_TextRPG
                         if (int.TryParse(input, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
                         {
                             Monster target = monsters[monsterIndex - 1];
-                            target.Health -= 100;
-                            //target.Health -= player.Attack;
-                            Console.WriteLine($"{target.Name} 공격!");
+                            target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
 
-                            if (target.Health <= 0)
+                            if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
                             {
-                                Console.WriteLine($"{target.Name}을(를) 처치했다!");
-                                target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
-
-                                if (target.Status == MonsterStatus.Dead)
-                                {
-                                    target.ShowInfo(); // Monster클래스 연결
-                                }
+                                BattleEnd();
+                                return;
                             }
-                            MonsterAttack();
 
-                            if (player.Health <= 0)
+                            if (target.Status.Contains(MonsterStatus.Dead)) 
+                            {
+                                
+                                MonsterAttack();
+                            }
+                            else
+                            {
+                                MonsterAttack(); // 몬스터 반격
+                            }
+
+                            if (player.Health <= 0) // 플레이어 죽음
                             {
                                 GameOver();
                                 return;
@@ -183,10 +185,7 @@ namespace Sparta_Team18_TextRPG
             }
             BattleEnd(); // 전투 종료되면 마을로 돌아가기 실행.
         }
-        private void EnemyPhase()
-        {
 
-        }
         private void MonsterAttack()
         {
             Console.Clear();
@@ -208,18 +207,20 @@ namespace Sparta_Team18_TextRPG
 
         private void BattleEnd()
         {
-            //전투 결과 출력 구현부
             Console.WriteLine("모든 적을 처치했습니다! 마을로 돌아갑니다.");
-            MonsterFactory.ClearMonsters(); //  전투 종료 후 리스트 비우기
+
+            monsters.Clear(); // 리스트 초기화
+
             Console.WriteLine("계속 하려면 Enter를 누르세요.");
             Console.Write(">> ");
             Console.ReadLine();
+            return;
         }
 
         private void GameOver()
         {
             Console.WriteLine("플레이어가 쓰러졌습니다... 전투 종료");
-            monsters.Clear();
+            monsters.Clear(); // 리스트 초기화
             Console.ReadLine();
         }
     }

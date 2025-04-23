@@ -111,7 +111,7 @@ namespace Sparta_Team18_TextRPG
             }
         }
 
-        public int PlayerAttack(Monster targetMonster)
+        public int PlayerAttack()
         {
             // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
             // to do: BattleManager같은 클래스를 만들어서 몬스터 데미지 시퀀스와 통합
@@ -140,14 +140,13 @@ namespace Sparta_Team18_TextRPG
 
         public void ShowPlayerInfo()
         {
-            Console.WriteLine("\n");
-            Console.WriteLine("\n+================================+\n");
-            Console.WriteLine("[내 정보]\n");
-            Console.Write($"Lv. {this.PlayerLevel} ");
+            Console.WriteLine("\n+==========================================+\n");
+            Console.WriteLine("\n[내 정보]");
+            Console.Write($"\nLv. {this.PlayerLevel} ");
             Console.Write($"이름: {this.Name} ");
             Console.WriteLine($"({this.ClassCode})\n");
-            Console.WriteLine($"체력: {this.Health}\n");
-            Console.WriteLine("+--------------------------------+\n");
+            Console.WriteLine($"체력: {this.Health}\n\n");
+            Console.WriteLine("+------------------------------------------+\n");
         }
     }
 }

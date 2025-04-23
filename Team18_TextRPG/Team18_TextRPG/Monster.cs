@@ -23,6 +23,7 @@ namespace Sparta_Team18_TextRPG
         public float Health { get; set; }
         public float Attack { get; set; }
         public HashSet<MonsterStatus> Status { get; set; } // 몬스터 여러 상태 저장
+        Player player = new Player();
 
         public Monster(int level, string name, int health,  int attack, MonsterStatus status  )
         {
@@ -42,21 +43,31 @@ namespace Sparta_Team18_TextRPG
         {
 
         }
-        public void MonsterHit(int damage)
+        public void MonsterHit(int damage) //몬스터가 받는 데미지 계산은 여기서.
         {
-            Health -= 100; // 전투 테스트용
-            if (Health <= 0 && Status.Contains(MonsterStatus.IsAlive))
+            Console.Clear();
+            Health -= player.PlayerAttack(); // 전투 테스트용(여기서 데미지 계산)
+            if (Health > 0 && Status.Contains(MonsterStatus.IsAlive))
             {
-                Health = 0;
-                Status.Clear();
-                Status.Add(MonsterStatus.Dead);
-                Console.WriteLine($"{Name}을(를) 처치했다!");
+                Console.WriteLine($"{player.PlayerAttack()} 데미지!!");
                 Console.ReadLine();
             }
-            else if (Status.Contains(MonsterStatus.Dead))
+            while (true)
             {
-                Console.WriteLine($"{Name}은(는) 이미 쓰러졌습니다! 몬스터들이 덤벼든다!");
-                Console.ReadLine();
+                if (Health <= 0 && Status.Contains(MonsterStatus.IsAlive))
+                {
+                    Health = 0;
+                    Status.Clear();
+                    Status.Add(MonsterStatus.Dead);
+                    Console.WriteLine($"{Name}을(를) 처치했다!");
+                    Console.ReadLine();
+                }
+                else if (Status.Contains(MonsterStatus.Dead))
+                {
+                    Console.WriteLine($"{Name}은(는) 이미 쓰러졌다! 몬스터들이 덤벼든다!");
+                    Console.ReadLine();
+                }
+                return;
             }
         }
         public void MonsterAddStatus(MonsterStatus status)

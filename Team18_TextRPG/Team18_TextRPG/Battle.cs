@@ -41,7 +41,7 @@ namespace Sparta_Team18_TextRPG
                     string name = monsterNames[random.Next(monsterNames.Count)];
                     var stats = monsterStats[name];
 
-                    int level = random.Next(1, 4);
+                    int level = stats.level + random.Next(1, 4);
                     int health = random.Next(stats.minHealth, stats.maxHealth + 1);
                     int attack = random.Next(stats.minAttack, stats.maxAttack + 1);
 
@@ -66,47 +66,49 @@ namespace Sparta_Team18_TextRPG
         private List<Monster> monsters = new List<Monster>();
         
 
-        public void PlayerInfo()
-        {
-            //sb.AppendLine("스트링빌더 적용 중");
-            //sb.AppendLine("\n+===================================+\n");
-            //sb.AppendLine("[내 정보]\n");
-            //sb.Append($"Lv. {player.PlayerLevel} ");
-            //sb.Append($"이름: {player.Name} ");
-            //sb.AppendLine($"({player.ClassCode})\n");
-            //sb.AppendLine($"체력: {player.Health}");
-            //sb.AppendLine("\n+-----------------------------------+\n");
-            //string result = sb.ToString();
-            //Console.WriteLine( result );
-            Console.WriteLine("\n");
-            Console.WriteLine("\n+================================+\n");
-            Console.WriteLine("[내 정보]\n");
-            Console.Write($"Lv. {player.PlayerLevel} ");
-            Console.Write($"이름: {player.Name} ");
-            Console.WriteLine($"({player.ClassCode})\n");
-            Console.WriteLine($"체력: {player.Health}\n");
-            Console.WriteLine("+--------------------------------+\n");
-        }
+        //public void PlayerInfo()
+        //{
+        //    //sb.AppendLine("스트링빌더 적용 중");
+        //    //sb.AppendLine("\n+===================================+\n");
+        //    //sb.AppendLine("[내 정보]\n");
+        //    //sb.Append($"Lv. {player.PlayerLevel} ");
+        //    //sb.Append($"이름: {player.Name} ");
+        //    //sb.AppendLine($"({player.ClassCode})\n");
+        //    //sb.AppendLine($"체력: {player.Health}");
+        //    //sb.AppendLine("\n+-----------------------------------+\n");
+        //    //string result = sb.ToString();
+        //    //Console.WriteLine( result );
+
+        //    Console.WriteLine("\n+================================+\n");
+        //    Console.WriteLine("[내 정보]\n");
+        //    Console.Write($"Lv. {player.PlayerLevel} ");
+        //    Console.Write($"이름: {player.Name} ");
+        //    Console.WriteLine($"({player.ClassCode})\n");
+        //    Console.WriteLine($"체력: {player.Health}");
+        //    Console.WriteLine("\n+--------------------------------+\n");
+        //}
         public void BattleStart()
         {
             ChangeTextFormat changeTextFormat = new ChangeTextFormat();
 
             Console.Clear();
             monsters = MonsterFactory.GetOrCreateMonsters();
-            Console.WriteLine($"\n몬스터가 보인다.");
-            Console.WriteLine($"[ 적 무리: {monsters.Count} ]\n");
+            Console.WriteLine($"\n몬스터가 보인다.\n");
+            Console.WriteLine($"\n[ 적 무리: {monsters.Count} ]\n\n");
             for (int i = 0; i < monsters.Count; i++)
             {
                 Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
             }
-            PlayerInfo();
+
+            player.ShowPlayerInfo();
+
             Console.WriteLine("전투 개시");
             Console.WriteLine("전투를 시작합니다.");
-
 
             Console.WriteLine("1. 전투 시작");
             Console.WriteLine("2. 도망가기");
             Console.Write(">> ");
+
             string input = Console.ReadLine();
 
             switch (input)
@@ -117,6 +119,8 @@ namespace Sparta_Team18_TextRPG
                     Combat();
                     break;
                 case "2":
+                    Console.Clear();
+                    monsters.Clear();
                     Console.WriteLine("도망쳤습니다. 다시 마을로 돌아갑니다.");
                     Console.ReadLine();
                     return;
@@ -145,15 +149,13 @@ namespace Sparta_Team18_TextRPG
             while (monsters.Count > 0)
             {
                 Console.Clear();
-                Console.WriteLine($"\n[ 적 무리 ]");
-                Console.WriteLine("공격할 몬스터를 선택하세요!\n");
-
+                Console.WriteLine($"\n\n\n[ 적 무리 ]\n\n");
+                
                 for (int i = 0; i < monsters.Count; i++)
                 {
                     // 이미 죽은 몬스터일 경우, 텍스트 색상을 어둡게 변경
-                    if (monsters[i].Status == MonsterStatus.Dead)
+                    if (monsters[i].Status.Contains(MonsterStatus.Dead))
                     {
-                        Console.WriteLine($"죽은 몬스터: {monsters[i].Name}");
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                     }
                     Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
@@ -179,54 +181,40 @@ namespace Sparta_Team18_TextRPG
                         {
                             Monster target = monsters[monsterIndex - 1];
 
-                            int battleDamage = player.PlayerAttack(target);
+                            //int battleDamage = player.PlayerAttack(target); >> 데미지 계산은 몬스터CS에서
+                            // 플레이어 데미지
+                            //target.Health -= battleDamage; // 플레이어와 몬스터 스크립트에서 계산.
+                            target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
 
-                            target.Health -= battleDamage;
-
-                            Console.WriteLine($"{target.Name}에게 공격!");
-
-                            // 몬스터 처치 시 사망 처리, 아닐 경우 데미지 계산
-                            if (target.Health <= 0)
+                            if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
                             {
-                                target.MonsterDie(target);
-
-                                Console.WriteLine($"{target.Name}(을)를 처치했습니다.");
-
-                                // monsters.RemoveAt(monsterIndex - 1);
+                                BattleEnd();
+                                return;
                             }
 
-                            MonsterAttack();
+                            if (target.Status.Contains(MonsterStatus.Dead))
+                            {
+
+                                MonsterAttack();
+                            }
+                            else
+                            {
+                                MonsterAttack(); // 몬스터 반격
+                            }
+
+                            if (player.Health <= 0) // 플레이어 죽음
+                            {
+                                GameManager.Instance.GameOver();
+                                monsters.Clear();
+                                Console.ReadLine();
+                                return;
+                            }
                         }
                         break;
-                            // target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
-
-                            // if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
-                            // {
-                            //     BattleEnd();
-                            //     return;
-                            // }
-
-                            // if (target.Status.Contains(MonsterStatus.Dead)) 
-                            // {
-                                
-                            //     MonsterAttack();
-                            // }
-                            // else
-                            // {
-                            //     MonsterAttack(); // 몬스터 반격
-                            // }
-
-                            // if (player.Health <= 0) // 플레이어 죽음
-                            // {
-                            //     GameOver();
-                            //     return;
-                            // }
                 }
             }
             BattleEnd(); // 전투 종료되면 마을로 돌아가기 실행.
         }
-
-        
 
         private void MonsterAttack()
         {
@@ -249,8 +237,9 @@ namespace Sparta_Team18_TextRPG
 
         public void BattleEnd()
         {
+            Console.Clear();
             Console.WriteLine("모든 적을 처치했습니다! 마을로 돌아갑니다.");
-
+            
             monsters.Clear(); // 리스트 초기화
 
             Console.WriteLine("계속 하려면 Enter를 누르세요.");
@@ -258,21 +247,6 @@ namespace Sparta_Team18_TextRPG
             Console.ReadLine();
             return;
         }
-
-        private void GameOver()
-        {
-            Console.WriteLine("플레이어가 쓰러졌습니다... 전투 종료");
-            monsters.Clear(); // 리스트 초기화
-            Console.ReadLine();
-        }
-            // if (player.Health <= 0)
-            // {
-            //     GameManager.Instance.GameOver();
-            // }
-            // else
-            // {
-            //     //몬스터 상태 변화()
-            // }
     }
 }
 

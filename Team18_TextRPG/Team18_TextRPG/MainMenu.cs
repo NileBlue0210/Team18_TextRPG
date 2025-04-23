@@ -29,7 +29,7 @@ namespace Sparta_Team18_TextRPG
 
                 Console.WriteLine(">> ");
 
-                StartAnswer = Console.ReadLine();
+                StartAnswer = Console.ReadLine() ?? "";
 
                 switch (StartAnswer)
                 {
@@ -51,17 +51,40 @@ namespace Sparta_Team18_TextRPG
 
         public void DisplayMainMenu()
         {
-            string CheckAnswer;
-            string NameAnswer;
-            Console.Write("스파르타 던전에 오신 여러분 환영합니다.\n");
-            Console.Write("원하시는 이름을 설정해 주세요.\n");
-            Console.Write(">>");
-            NameAnswer = Console.ReadLine();
-            Console.Write($"({NameAnswer}) 이 이름으로 하시겠습니까?\n\n1.확정\n2.취소 \n >>");
-            CheckAnswer = Console.ReadLine();
-            
+            string checkAnswer;
+            string nameAnswer;
 
+            while (true)
+            {
+                Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
+                Console.WriteLine("원하시는 이름을 설정해 주세요.");
+                Console.Write(">> ");
+                nameAnswer = Console.ReadLine() ?? "";
 
+                while (true)
+                {
+                    Console.WriteLine($"\n({nameAnswer}) 이 이름으로 하시겠습니까?");
+                    Console.WriteLine("1. 확정");
+                    Console.WriteLine("2. 취소");
+                    Console.Write(">> ");
+                    checkAnswer = Console.ReadLine() ?? "";
+
+                    if (checkAnswer == "1")
+                    {
+                        Console.WriteLine("이름이 확정되었습니다!");
+                        return;
+                    }
+                    else if (checkAnswer == "2")
+                    {
+                        Console.WriteLine("이름 설정을 다시 시작합니다.\n");
+                        break; 
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다. 1 또는 2를 입력해주세요.\n");
+                    }
+                }
+            }
         }
     }
 }

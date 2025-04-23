@@ -41,7 +41,7 @@ namespace Sparta_Team18_TextRPG
                     string name = monsterNames[random.Next(monsterNames.Count)];
                     var stats = monsterStats[name];
 
-                    int level = random.Next(1, 3);
+                    int level = random.Next(1, 4);
                     int health = random.Next(stats.minHealth, stats.maxHealth + 1);
                     int attack = random.Next(stats.minAttack, stats.maxAttack + 1);
 
@@ -59,12 +59,12 @@ namespace Sparta_Team18_TextRPG
 
     public class Battle
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); //문자빌더
 
         Player player = new Player();
         
         private List<Monster> monsters = new List<Monster>();
-
+        
 
         public void PlayerInfo()
         {
@@ -93,9 +93,11 @@ namespace Sparta_Team18_TextRPG
 
             Console.Clear();
             monsters = MonsterFactory.GetOrCreateMonsters();
+            Console.WriteLine($"\n몬스터가 보인다.");
+            Console.WriteLine($"[ 적 무리: {monsters.Count} ]\n");
             for (int i = 0; i < monsters.Count; i++)
             {
-                Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
+                Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
             }
             PlayerInfo();
             Console.WriteLine("전투 개시");
@@ -144,19 +146,18 @@ namespace Sparta_Team18_TextRPG
             {
                 Console.Clear();
                 Console.WriteLine($"\n[ 적 무리 ]");
+                Console.WriteLine("공격할 몬스터를 선택하세요!\n");
 
                 for (int i = 0; i < monsters.Count; i++)
                 {
                     // 이미 죽은 몬스터일 경우, 텍스트 색상을 어둡게 변경
-                    if (monsters[i].Status == MonsterStatus.Die)
+                    if (monsters[i].Status == MonsterStatus.Dead)
                     {
                         Console.WriteLine($"죽은 몬스터: {monsters[i].Name}");
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                     }
-
-                    Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
-
-                    Console.ResetColor();   // 색 변경 여부와 관계없이 텍스트 리셋처리
+                    Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
+                    Console.ResetColor();
                 }
 
                 player.ShowPlayerInfo();
@@ -170,6 +171,8 @@ namespace Sparta_Team18_TextRPG
                 switch (userInput)
                 {
                     case "0":
+                        Console.WriteLine("기회를 놓쳤다. 몬스터들이 덤벼든다.");
+                        MonsterAttack();
                         break;
                     default:
                         if (int.TryParse(userInput, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
@@ -195,14 +198,35 @@ namespace Sparta_Team18_TextRPG
                             MonsterAttack();
                         }
                         break;
+                            // target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
+
+                            // if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
+                            // {
+                            //     BattleEnd();
+                            //     return;
+                            // }
+
+                            // if (target.Status.Contains(MonsterStatus.Dead)) 
+                            // {
+                                
+                            //     MonsterAttack();
+                            // }
+                            // else
+                            // {
+                            //     MonsterAttack(); // 몬스터 반격
+                            // }
+
+                            // if (player.Health <= 0) // 플레이어 죽음
+                            // {
+                            //     GameOver();
+                            //     return;
+                            // }
                 }
             }
             BattleEnd(); // 전투 종료되면 마을로 돌아가기 실행.
         }
-        private void EnemyPhase()
-        {
 
-        }
+        
 
         private void MonsterAttack()
         {
@@ -210,8 +234,9 @@ namespace Sparta_Team18_TextRPG
             Console.WriteLine($"\n몬스터들의 반격!\n");
             foreach (Monster monster in monsters)
             {
+                if (monster.Health <= 0) continue; // 몬스터 체력: 0 되면 정지
                 if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
-
+                
                 int damage = (int)monster.Attack;
                 player.Health -= damage;
 
@@ -219,25 +244,35 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"플레이어 남은 체력: {player.Health}");
                 Console.ReadLine();
             }
-            if (player.Health <= 0)
-            {
-                GameManager.Instance.GameOver();
-            }
-            else
-            {
-                //몬스터 상태 변화()
-            }
+            Console.Clear();
         }
 
         public void BattleEnd()
         {
-            //전투 결과 출력 구현부
             Console.WriteLine("모든 적을 처치했습니다! 마을로 돌아갑니다.");
-            MonsterFactory.ClearMonsters(); //  전투 종료 후 리스트 비우기
+
+            monsters.Clear(); // 리스트 초기화
+
             Console.WriteLine("계속 하려면 Enter를 누르세요.");
             Console.Write(">> ");
             Console.ReadLine();
+            return;
         }
+
+        private void GameOver()
+        {
+            Console.WriteLine("플레이어가 쓰러졌습니다... 전투 종료");
+            monsters.Clear(); // 리스트 초기화
+            Console.ReadLine();
+        }
+            // if (player.Health <= 0)
+            // {
+            //     GameManager.Instance.GameOver();
+            // }
+            // else
+            // {
+            //     //몬스터 상태 변화()
+            // }
     }
 }
 

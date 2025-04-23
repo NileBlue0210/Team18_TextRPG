@@ -55,7 +55,7 @@ namespace Sparta_Team18_TextRPG
                     }
 
                     // 선택한 몬스터가 이미 죽어있을 경우, 다시 질문한다
-                    if (targetMonster.Status == MonsterStatus.Die)
+                    if (targetMonster.Status == MonsterStatus.Dead)
                     {
                         Console.WriteLine($"{targetMonster.Name}(은)는 이미 쓰러진 상태입니다. 다른 공격대상을 선택해주세요).");
 

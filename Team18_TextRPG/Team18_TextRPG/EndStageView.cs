@@ -24,10 +24,10 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("배틀 결과\n\n\n\n\n");
                 Console.WriteLine("+======================+");
                 Console.WriteLine("내 정보\n");
-                Console.WriteLine($"{player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
+                Console.WriteLine($"LV.{player.PlayerLevel} {player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
                 Console.WriteLine($"LV:");
-                Console.Write($"체력:");                                                  // 시간차 구현(승리,패배 -> 바뀐 체력 -> 바뀐 골드)
-                Console.WriteLine($"골드:");
+                Console.Write($"체력:");                //원래 체력 -> player.Health
+                Console.WriteLine($"골드:");            //원래 골드 -> player.Gold
                 Console.WriteLine("대상을 선택해주세요>>\n");
                 Console.WriteLine("-전투옵션-");
                 Console.WriteLine("0.다음");
@@ -35,9 +35,6 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(0, 3);
-                Console.WriteLine($"{player.PlayerLevel}");
-                Thread.Sleep(1000);
-                Console.SetCursorPosition(5, 10);
                 Console.Write($"{player.Health}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(5, 11);

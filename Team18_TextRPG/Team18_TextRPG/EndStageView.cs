@@ -18,6 +18,8 @@ namespace Sparta_Team18_TextRPG
                 result = "You Lose";
             }
 
+            Console.WriteLine("\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0");
+
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -28,7 +30,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("내 정보\n");
                 Console.WriteLine($"{player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
                 Console.WriteLine($"LV:");
-                Console.Write($"체력:");
+                Console.WriteLine($"체력:");
                 Console.WriteLine($"골드:");
 
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -36,13 +38,13 @@ namespace Sparta_Team18_TextRPG
                 Thread.Sleep(1000);
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(4, 8);
+                Console.SetCursorPosition(4, 10);
                 Console.WriteLine($"{player.PlayerLevel}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 9);
-                Console.Write($"{player.Health}");
+                Console.SetCursorPosition(6, 11);
+                Console.WriteLine($"{player.Health}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 10);
+                Console.SetCursorPosition(6, 12);
                 Console.Write($"{player.Gold}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 17);

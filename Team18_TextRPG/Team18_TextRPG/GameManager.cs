@@ -13,11 +13,13 @@ namespace Sparta_Team18_TextRPG
 
         static void Main()
         {
-            MainMenu mainMenu = new MainMenu();
+            Player player = new Player();
+            MainMenu mainMenu = new MainMenu(player);
 
+            mainMenu.Nickname();
             mainMenu.DisplayMainMenu();
             
-            Status status = new Status();
+            Status status = new Status(player);
             status.ShowStat();
         }
 

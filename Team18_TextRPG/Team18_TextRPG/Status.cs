@@ -9,16 +9,23 @@ namespace Sparta_Team18_TextRPG
 {
     class Status
     {
-        Player player = new Player();
-        ConvertClassCode convertClassCode = new ConvertClassCode();
-        MainMenu mainMenu = new MainMenu();
 
+        Player player = new Player();
+        private MainMenu mainMenu;
+        ConvertClassCode convertClassCode = new ConvertClassCode();
+        
+        public Status(Player player)
+        {
+            this.player = player;
+            this.mainMenu = new MainMenu(player);
+        }
 
         public void ShowStat()
         {
             string className = convertClassCode.ConvertClassCodeToString(player.ClassCode);
             string goToMainMenu = "";
             
+
             do
                 
             {
@@ -28,7 +35,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("\n 캐릭터의 정보가 표시됩니다. ");
                 Console.WriteLine($"\n +=========================+");
                 Console.WriteLine($"\n Lv. {player.PlayerLevel}");
-                Console.WriteLine($" Chad ( {className} )");
+                Console.WriteLine($" {player.Name} ( {className} )");
                 Console.WriteLine($" 공격력 : {player.Attack}");
                 Console.WriteLine($" 방어력 : {player.Defense}");
                 Console.WriteLine($" 체 력 : {player.Health}");

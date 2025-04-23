@@ -109,10 +109,78 @@ namespace Sparta_Team18_TextRPG
 
             Phase turnManager = new Phase();
 
-            turnManager.PlayerTurn(player, monsters);
+            // turnManager.PlayerTurn(player, monsters);
+            PlayerTurn(player, monsters);
         }
 
-        public void MonsterAttack()
+        private void PlayerTurn(Player player, List<Monster> monsters)
+        {
+            string userInput = "";
+            InputValidator inputValidator = new InputValidator();   // 플레이어 입력 유효성 검사 클래스
+
+            Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
+
+            while (monsters.Count > 0 && player.Health > 0) //플레이어 체력 0보다 크면 행동
+            {
+                Console.Clear();
+                Console.WriteLine("\n[적 무리]\n");
+
+                for (int i = 0; i < monsters.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
+                }
+                if (monsters.Count == 0)
+                {
+                    BattleEnd();
+                }
+
+                player.ShowPlayerInfo();
+
+                Console.WriteLine("공격할 몬스터를 선택하세요!");
+                Console.WriteLine("0.도망가기");
+                Console.Write(">> ");
+
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "0":
+                        Console.Write("도망쳤습니다. 다시 마을로 돌아갑니다.");
+                        Console.ReadLine();
+                        return;
+
+                    default:
+                        if (int.TryParse(userInput, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
+                        {
+                            Monster target = monsters[monsterIndex - 1];
+
+                            int battleDamage = player.PlayerAttack(target);
+
+                            target.Health -= battleDamage;
+
+                            Console.WriteLine($"{target.Name}에게 공격!");
+
+                            // 몬스터 처치 시 사망 처리, 아닐 경우 데미지 계산
+                            if (target.Health <= 0)
+                            {
+                                target.Health = 0; // 체력이 음수라도 0으로 고정
+                                target.MonsterDie(target);
+
+                                Console.WriteLine($"{target.Name}(을)를 처치했습니다.");
+
+                                monsters.RemoveAt(monsterIndex - 1);
+                            }
+
+                            MonsterAttack();
+                        }
+                        break;
+                }
+                Console.WriteLine("\n계속 진행하려면 Enter를 누르세요.");
+                Console.ReadLine();
+            }
+        }
+
+        private void MonsterAttack()
         {
             Console.WriteLine($"\n몬스터들의 반격!\n");
             foreach (Monster monster in monsters)

@@ -17,8 +17,6 @@ namespace Sparta_Team18_TextRPG
 {
     public class Player
     {
-        GameManager gameManager = new GameManager();
-
         private string name = "";    // 플레이어 이름
         private int playerLevel = 1;    // 플레이어 레벨 to do: 2자릿수로 표시되도록 01, 02 등..
         private int classCode = 1;  // 플레이어 직업 (0: 노비스, 1: 전사, 2: 마법사, 3: 궁수)
@@ -97,7 +95,7 @@ namespace Sparta_Team18_TextRPG
                 // 플레이어의 체력이 0이 되면 게임 오버 처리
                 if (health <= 0)
                 {
-                    gameManager.GameOver();
+                    GameManager.Instance.GameOver();
                 }
             }
         }

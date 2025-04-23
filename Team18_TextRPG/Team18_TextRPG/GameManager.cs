@@ -9,22 +9,32 @@ namespace Sparta_Team18_TextRPG
 {
     public class GameManager
     {
-        Player player = new Player();
+        private static GameManager instance;
 
-        static void Main()
+        // 싱글턴 패턴 구현
+        public static GameManager Instance
         {
-            Player player = new Player();
-            MainMenu mainMenu = new MainMenu(player);
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameManager();
 
-            mainMenu.Nickname();
-            mainMenu.DisplayMainMenu();
-            
-            Status status = new Status(player);
-            status.ShowStat();
+                }
+
+                return instance;
+            }
+        }
+
+        private GameManager()
+        {
+
         }
 
         public void GameOver()
         {
+            Player player = new Player();
+
             Console.WriteLine($"게임 오버. {player.Name}이 쓰러졌습니다.");
         }
     }

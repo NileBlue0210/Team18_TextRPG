@@ -40,7 +40,7 @@ namespace Sparta_Team18_TextRPG
                     string name = monsterNames[random.Next(monsterNames.Count)];
                     var stats = monsterStats[name];
 
-                    int level = random.Next(1, 3);
+                    int level = random.Next(1, 4);
                     int health = random.Next(stats.minHealth, stats.maxHealth + 1);
                     int attack = random.Next(stats.minAttack, stats.maxAttack + 1);
 
@@ -58,7 +58,7 @@ namespace Sparta_Team18_TextRPG
 
     public class Battle
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); //문자빌더
 
         Player player = new Player();
         
@@ -91,6 +91,8 @@ namespace Sparta_Team18_TextRPG
 
             Console.Clear();
             monsters = MonsterFactory.GetOrCreateMonsters();
+            Console.WriteLine($"\n몬스터가 보인다.");
+            Console.WriteLine($"[ 적 무리: {monsters.Count} ]\n");
             for (int i = 0; i < monsters.Count; i++)
             {
                 Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");

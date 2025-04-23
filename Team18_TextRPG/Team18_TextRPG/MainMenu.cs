@@ -18,7 +18,7 @@ namespace Sparta_Team18_TextRPG
         public void DisplayMainMenu()
         {
             Status status = new Status(player);
-            Battle battle = new Battle(player);
+            Battle battle = new Battle();
             Console.Clear();
             string StartAnswer;
 

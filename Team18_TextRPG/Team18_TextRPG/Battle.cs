@@ -128,9 +128,6 @@ namespace Sparta_Team18_TextRPG
         {
             Console.Clear();
 
-            Phase turnManager = new Phase();
-
-            // turnManager.PlayerTurn(player, monsters);
             PlayerTurn(player, monsters);
         }
 

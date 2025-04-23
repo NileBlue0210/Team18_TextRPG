@@ -111,7 +111,7 @@ namespace Sparta_Team18_TextRPG
             }
         }
 
-        public void PlayerAttack(Monster targetMonster)
+        public int PlayerAttack(Monster targetMonster)
         {
             // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
             // to do: BattleManager같은 클래스를 만들어서 몬스터 데미지 시퀀스와 통합
@@ -122,18 +122,7 @@ namespace Sparta_Team18_TextRPG
 
             int randomDamage = random.Next(minDamage, maxDamage + 1);   // to do: 추후 float로 바꿀 경우 nextdouble을 사용. maxDamage + 1 부분을 float일 경우 어떻게 할 것인지 고려해야 함
 
-            targetMonster.Health -= randomDamage;
-
-            Console.WriteLine($"{targetMonster.Name}(을)를 공격! {randomDamage}의 데미지를 입혔습니다.");
-
-            // 공격으로 인해 적이 사망했을 경우, 사망 처리. 아닐 경우 데미지 계산
-            if (targetMonster.Health <= 0)
-            {
-                targetMonster.Health = 0; // 에러 대비 체력이 음수라도 0으로 고정
-                targetMonster.MonsterDie(targetMonster);
-
-                Console.WriteLine($"{targetMonster.Name}(을)를 처치했습니다.");
-            }
+            return randomDamage;
         }
 
         public void PlayerHit()

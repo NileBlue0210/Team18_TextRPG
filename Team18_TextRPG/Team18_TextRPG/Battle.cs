@@ -57,10 +57,12 @@ namespace Sparta_Team18_TextRPG
     public class Battle
     {
         Player player = new Player();
-        MainMenu mainMenu = new MainMenu();
         private List<Monster> monsters = new List<Monster>();
 
-        
+        public Battle(Player player)
+        {
+            this.player = player;
+        }
 
         public void PlayerInfo()
         {

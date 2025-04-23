@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Xml.Linq;
+using Team18_TextRPG;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Sparta_Team18_TextRPG
@@ -88,6 +89,7 @@ namespace Sparta_Team18_TextRPG
         }
         public void BattleStart()
         {
+            ChangeTextFormat changeTextFormat = new ChangeTextFormat();
 
             Console.Clear();
             monsters = MonsterFactory.GetOrCreateMonsters();
@@ -137,16 +139,29 @@ namespace Sparta_Team18_TextRPG
             InputValidator inputValidator = new InputValidator();   // 플레이어 입력 유효성 검사 클래스
 
             Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
-            Console.WriteLine($"\n[ 적 무리 ]");
-            Console.WriteLine("공격할 몬스터를 선택하세요!\n");
+
             while (monsters.Count > 0)
             {
+                Console.Clear();
+                Console.WriteLine($"\n[ 적 무리 ]");
+
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
-                }
-                PlayerInfo();
+                    // 이미 죽은 몬스터일 경우, 텍스트 색상을 어둡게 변경
+                    if (monsters[i].Status == MonsterStatus.Die)
+                    {
+                        Console.WriteLine($"죽은 몬스터: {monsters[i].Name}");
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                    }
 
+                    Console.WriteLine($"{i + 1}) Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
+
+                    Console.ResetColor();   // 색 변경 여부와 관계없이 텍스트 리셋처리
+                }
+
+                player.ShowPlayerInfo();
+
+                Console.WriteLine("공격할 몬스터를 선택하세요!\n");
                 Console.WriteLine("0.페이즈 넘기기");
                 Console.Write(">> ");
 
@@ -155,15 +170,11 @@ namespace Sparta_Team18_TextRPG
                 switch (userInput)
                 {
                     case "0":
-
                         break;
                     default:
                         if (int.TryParse(userInput, out int monsterIndex) && monsterIndex >= 1 && monsterIndex <= monsters.Count)
                         {
                             Monster target = monsters[monsterIndex - 1];
-                            target.Health -= 100;
-                            //target.Health -= player.Attack;
-                            Console.WriteLine($"{target.Name} 공격!");
 
                             int battleDamage = player.PlayerAttack(target);
 
@@ -174,12 +185,11 @@ namespace Sparta_Team18_TextRPG
                             // 몬스터 처치 시 사망 처리, 아닐 경우 데미지 계산
                             if (target.Health <= 0)
                             {
-                                target.Health = 0; // 체력이 음수라도 0으로 고정
                                 target.MonsterDie(target);
 
                                 Console.WriteLine($"{target.Name}(을)를 처치했습니다.");
 
-                                monsters.RemoveAt(monsterIndex - 1);
+                                // monsters.RemoveAt(monsterIndex - 1);
                             }
 
                             MonsterAttack();

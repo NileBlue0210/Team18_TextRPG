@@ -50,6 +50,13 @@ namespace Sparta_Team18_TextRPG
         public void MonsterDie(Monster monster)
         {
             monster.Status = MonsterStatus.Die;
+
+            Console.WriteLine($"{monster.Name}사망, 현재 상태: {monster.Status}");
+
+            if (monster.Health <= 0)
+            {
+                monster.Health = 0; // 체력이 음수라도 0으로 고정
+            }
         }
     }
 }

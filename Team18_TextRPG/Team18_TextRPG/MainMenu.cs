@@ -24,7 +24,6 @@ namespace Sparta_Team18_TextRPG
 
             do
             {
-
                 Console.Write(@"스파르타 던전에 오신 여러분 환영합니다.");
                 Console.Write("\n이제 전투를 시작할 수 있습니다.");
 

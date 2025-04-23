@@ -4,53 +4,67 @@ namespace Sparta_Team18_TextRPG
 {
     public class EndStageView
     {
-        public void EndStage()
+        public void EndStage(Player player)
         {
-            Player player = new Player();
             ConvertClassCode convertClassCode = new ConvertClassCode();
             string result = "";
 
-            if (player.Health <= 0)
+            if (player.Health > 0)
             {
-                result = "패배...";
+                result = "You Victory";
             }
-            else if (player.Health > 0) // 플레이어 체력이 0보다 높을 때 && 몬스터 수가 0일 때
+            else if (player.Health <= 0)
             {
-                result = "승리!";
+                result = "You Lose";
             }
 
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("배틀 결과\n\n\n\n\n");
+                Console.ResetColor();
+
                 Console.WriteLine("+======================+");
                 Console.WriteLine("내 정보\n");
-                Console.WriteLine($"LV.{player.PlayerLevel} {player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
+                Console.WriteLine($"{player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
                 Console.WriteLine($"LV:");
-                Console.Write($"체력:");                //원래 체력 -> player.Health
-                Console.WriteLine($"골드:");            //원래 골드 -> player.Gold
-                Console.WriteLine("대상을 선택해주세요>>\n");
-                Console.WriteLine("-전투옵션-");
-                Console.WriteLine("0.다음");
+                Console.Write($"체력:");
+                Console.WriteLine($"골드:");
 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(0, 3);
+                Thread.Sleep(1000);
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(0, 3);
+                Console.SetCursorPosition(4, 8);
+                Console.WriteLine($"{player.PlayerLevel}");
+                Thread.Sleep(1000);
+                Console.SetCursorPosition(6, 9);
                 Console.Write($"{player.Health}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(5, 11);
+                Console.SetCursorPosition(6, 10);
                 Console.Write($"{player.Gold}");
+                Console.ResetColor();
+                Console.SetCursorPosition(0, 17);
+
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(5, 12);
+                Console.WriteLine("\n대상을 선택해주세요>>\n");
+                Console.WriteLine("-전투옵션-");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("0.");
+                Console.ResetColor();
+                Console.Write(" 다음");
 
 
                 string input = Console.ReadLine();
                 switch (input)
                 {
                     case "0":
-                        MainMenu main = new MainMenu();
+                        MainMenu main = new MainMenu(player);
                         main.DisplayMainMenu();
                         return;
                     default:
+                        Console.Clear();
                         Console.WriteLine("잘못된 입력입니다..");
                         continue;
                 }

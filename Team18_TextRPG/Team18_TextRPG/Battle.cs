@@ -62,6 +62,7 @@ namespace Sparta_Team18_TextRPG
         StringBuilder sb = new StringBuilder();
 
         Player player = new Player();
+        MainMenu mainmenu = new MainMenu();
         
         private List<Monster> monsters = new List<Monster>();
 
@@ -116,8 +117,8 @@ namespace Sparta_Team18_TextRPG
                     break;
                 case "2":
                     Console.WriteLine("도망쳤습니다. 다시 마을로 돌아갑니다.");
-                    Console.ReadLine();
-                    return;
+                    mainmenu.DisplayMainMenu();
+                    break;
                 default:
                     Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
                     Console.ReadLine();

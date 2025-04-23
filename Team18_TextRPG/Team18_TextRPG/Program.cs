@@ -13,11 +13,11 @@ namespace Team18_TextRPG
         {
             Player player = new Player();
 
-            MainMenu mainMenu = new MainMenu(player);
+            MainMenu mainMenu = new MainMenu();
             mainMenu.Nickname();
             mainMenu.DisplayMainMenu();
 
-            Status status = new Status(player);
+            Status status = new Status();
             status.ShowStat();
         }
     }

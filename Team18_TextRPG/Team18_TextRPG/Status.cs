@@ -11,23 +11,21 @@ namespace Sparta_Team18_TextRPG
     {
 
         Player player = new Player();
-        private MainMenu mainMenu;
+        MainMenu mainMenu = new MainMenu();
+
         ConvertClassCode convertClassCode = new ConvertClassCode();
         
-        public Status(Player player)
+        public Status()
         {
-            this.player = player;
-            this.mainMenu = new MainMenu(player);
+
         }
 
         public void ShowStat()
         {
             string className = convertClassCode.ConvertClassCodeToString(player.ClassCode);
             string goToMainMenu = "";
-            
 
             do
-                
             {
                 Console.Clear();
 
@@ -42,8 +40,6 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($" Gold : {player.Gold}");
 
                 Console.WriteLine("\n0. 나가기");
-
-                
                
                 goToMainMenu = Console.ReadLine();
 

@@ -45,5 +45,18 @@ namespace Sparta_Team18_TextRPG
 
             return resultDictionary;
         }
+
+        // 입력값이 비어있는지 확인
+        public bool CheckEmptyInput(string input)
+        {
+            bool result = false;
+
+            if (String.IsNullOrEmpty(input))
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

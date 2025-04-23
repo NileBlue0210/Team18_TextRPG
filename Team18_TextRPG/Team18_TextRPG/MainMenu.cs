@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Sparta_Team18_TextRPG
 {
     public class MainMenu
-    {// 완전 신나
+    {
 
         public void DisplayMainMenu()
         {

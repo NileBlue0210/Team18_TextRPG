@@ -29,6 +29,7 @@ namespace Sparta_Team18_TextRPG
         {
             int result = 0;
 
+            // to do: 만약 유저가 음수를 입력할 때를 상정해야함
             // 숫자 입력 여부 검사
             if (int.TryParse(userInput, out int number))
             {

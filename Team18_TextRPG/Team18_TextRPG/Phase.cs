@@ -43,11 +43,11 @@ namespace Sparta_Team18_TextRPG
                 // 사용자 입력이 숫자가 아닐 경우, 음수를 반환
                 int chooseNumber = inputValidator.CheckAndConvertUserInput(userInput);
 
-                targetMonster = monsterList[chooseNumber];
-
                 // 사용자 입력이 숫자인지를 판별해, 숫자가 아닐 경우 다시 질문한다
                 if (chooseNumber >= 0)
                 {
+                    targetMonster = monsterList[chooseNumber];
+
                     // 플레이어의 입력이 유효한 몬스터 번호가 아니거나, 음수일 경우 다시 질문한다
                     if (!inputValidator.CheckSelectUserInput(monsterList, chooseNumber))
                     {

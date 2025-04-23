@@ -7,18 +7,23 @@ using System.Threading.Tasks;
 
 namespace Sparta_Team18_TextRPG
 {
-    internal class GameManager
+    public class GameManager
     {
+        Player player = new Player();
+
         static void Main()
         {
-            Player player = new Player();
             MainMenu mainMenu = new MainMenu();
 
             mainMenu.DisplayMainMenu();
             
             Status status = new Status();
             status.ShowStat();
-            
+        }
+
+        public void GameOver()
+        {
+            Console.WriteLine($"게임 오버. {player.Name}이 쓰러졌습니다.");
         }
     }
 }

@@ -50,7 +50,8 @@ namespace Sparta_Team18_TextRPG
                     Console.Clear();
                     monsters.Clear();
                     Console.WriteLine("도망쳤습니다. 다시 마을로 돌아갑니다.");
-                    mainmenu.DisplayMainMenu();
+                    // mainmenu.DisplayMainMenu();
+                    Program.ChangeView(EViewName.Main);
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");

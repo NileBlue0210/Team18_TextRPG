@@ -76,6 +76,7 @@ namespace Sparta_Team18_TextRPG
 
             string checkAnswer;
             string nameAnswer;
+            string defaultName = "이름없는 용사";   // 유저가 이름을 입력하지 않았을 때의 디폴트 네임
 
             while (true)
             {
@@ -86,7 +87,8 @@ namespace Sparta_Team18_TextRPG
 
                 if(inputValidator.CheckEmptyInput(nameAnswer))
                 {
-                    Console.WriteLine("이름을 입력하시지 않으면 자동으로 \"이름없는 용사\" 로 이름이 설정됩니다.");
+                    Console.WriteLine($"이름을 입력하시지 않으면 자동으로 {defaultName} 로 이름이 설정됩니다.");
+                    nameAnswer = defaultName;
                 }
 
                 while (true)
@@ -100,11 +102,12 @@ namespace Sparta_Team18_TextRPG
                     if (checkAnswer == "1")
                     {
                         GameManager.Instance.player.Name = nameAnswer; 
-                        Console.WriteLine("이름이 확정되었습니다!");
+                        Console.WriteLine($"반갑습니다, {GameManager.Instance.player.Name}님!");
                         return;
                     }
                     else if (checkAnswer == "2")
                     {
+                        nameAnswer = "";
                         Console.WriteLine("이름 설정을 다시 시작합니다.\n");
                         break; 
                     }

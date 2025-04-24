@@ -9,8 +9,6 @@ namespace Sparta_Team18_TextRPG
 {
     public class MainMenu
     {
-        Player player = new Player();
-
         public MainMenu()
         {
 
@@ -18,71 +16,80 @@ namespace Sparta_Team18_TextRPG
 
         public void DisplayMainMenu()
         {
-            Battle battle = new Battle();
-
-       
-
             Console.Clear();
+
             string StartAnswer;
+            InputValidator inputValidator = new InputValidator();
 
-            do
+            Console.Write("스파르타 던전에 오신 여러분 환영합니다.");
+
+            // 플레이어의 닉네임이 정해져 있지 않을 경우, 닉네임 설정 실행
+            if (inputValidator.CheckEmptyInput(GameManager.Instance.player.Name))
             {
-
+                SetNickName();
+            }
+            else
+            {
                 Console.Clear();
-                
+                Console.Write("\n");
+                Console.Write("이제 전투를 시작할 수 있습니다.");
+                Console.Write("\n");
 
-                Console.Write(@"스파르타 던전에 오신 여러분 환영합니다.");
-                Console.Write("\n이제 전투를 시작할 수 있습니다.");
-
-                Console.WriteLine("\n1.상태보기");
-                Console.WriteLine("2.전투시작");
-                Console.WriteLine("3.인벤토리");
-                Console.WriteLine("4.상점");
-
-                Console.WriteLine("원하시는 행동을 입력해주세요");
-
-                Console.WriteLine(">> ");
-
-                StartAnswer = Console.ReadLine() ?? "";
-
-                switch (StartAnswer)
+                while (true)
                 {
-                    case "1":
-                        //상태창 로직
-                       
-                        new StatusUI(player).ShowStat();
-                        break;
-                    case "2":
-                        // 전투시작 로직
-                        battle.BattleStart();
-                        break;
+                    Console.WriteLine("1.상태보기");
+                    Console.WriteLine("2.전투시작");
+                    Console.WriteLine("3.인벤토리");
+                    Console.WriteLine("4.상점");
 
+                    GameManager.Instance.Ask();
+
+                    StartAnswer = Console.ReadLine() ?? "";
+
+                    switch (StartAnswer)
+                    {
+                        case "1":
+                            //상태창 로직
+                            Program.ChangeView(EViewName.Status);
+                            break;
+                        case "2":
+                            // 전투시작 로직
+                            Program.ChangeView(EViewName.Battle);
+                            break;
                         case "3":
-                            new InventoryUI(player).ShowInventory();
-                        break;
-
-                    case "4":
-                        new ShopManager().OpenShop(player);
-                        break;
-                    default:
-                        Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n\n\n");
-                        break;
+                            // 인벤토리 로직
+                            Program.ChangeView(EViewName.Inventory);
+                            break;
+                        case "4":
+                            // 상점 로직
+                            Program.ChangeView(EViewName.Shop);
+                            break;
+                        default:
+                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
+                            continue;
+                    }
                 }
-
-            } while (StartAnswer != "1" || StartAnswer != "2");
+            }
         }
 
-        public void Nickname()
+        static void SetNickName()
         {
+            InputValidator inputValidator = new InputValidator();
+
             string checkAnswer;
             string nameAnswer;
 
             while (true)
             {
-                Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
                 Console.WriteLine("원하시는 이름을 설정해 주세요.");
                 Console.Write(">> ");
-                nameAnswer = Console.ReadLine() ?? "";
+
+                nameAnswer = Console.ReadLine();
+
+                if(inputValidator.CheckEmptyInput(nameAnswer))
+                {
+                    Console.WriteLine("이름을 입력하시지 않으면 자동으로 \"이름없는 용사\" 로 이름이 설정됩니다다.");
+                }
 
                 while (true)
                 {
@@ -94,7 +101,7 @@ namespace Sparta_Team18_TextRPG
 
                     if (checkAnswer == "1")
                     {
-                        player.Name = nameAnswer; 
+                        GameManager.Instance.player.Name = nameAnswer; 
                         Console.WriteLine("이름이 확정되었습니다!");
                         return;
                     }
@@ -105,7 +112,7 @@ namespace Sparta_Team18_TextRPG
                     }
                     else
                     {
-                        Console.WriteLine("잘못된 입력입니다. 1 또는 2를 입력해주세요.\n");
+                        Console.WriteLine("잘못된 입력입니다. 확정, 또는 취소를 선택해주세요.\n");
                     }
                 }
             }

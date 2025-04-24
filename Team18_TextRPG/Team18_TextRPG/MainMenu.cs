@@ -9,16 +9,15 @@ namespace Sparta_Team18_TextRPG
 {
     public class MainMenu
     {
-        private Player player;
+        Player player = new Player();
 
-        public MainMenu(Player player)
+        public MainMenu()
         {
-            this.player = player;
+
         }
 
         public void DisplayMainMenu()
         {
-
             Battle battle = new Battle();
 
        

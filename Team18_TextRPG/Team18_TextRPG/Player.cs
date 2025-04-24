@@ -140,13 +140,16 @@ namespace Sparta_Team18_TextRPG
 
         public void ShowPlayerInfo()
         {
-            Console.WriteLine("\n+==========================================+\n");
-            Console.WriteLine("\n[내 정보]");
-            Console.Write($"\nLv. {this.PlayerLevel} ");
+            ConvertClassCode classString = new ConvertClassCode();
+
+            Console.WriteLine("\n");
+            Console.WriteLine("\n+================================+\n");
+            Console.WriteLine("[내 정보]\n");
+            Console.Write($"Lv. {this.PlayerLevel} ");
             Console.Write($"이름: {this.Name} ");
-            Console.WriteLine($"({this.ClassCode})\n");
-            Console.WriteLine($"체력: {this.Health}\n\n");
-            Console.WriteLine("+------------------------------------------+\n");
+            Console.WriteLine($"({classString.ConvertClassCodeToString(this.ClassCode)})\n");
+            Console.WriteLine($"체력: {this.Health}\n");
+            Console.WriteLine("+--------------------------------+\n");
         }
     }
 }

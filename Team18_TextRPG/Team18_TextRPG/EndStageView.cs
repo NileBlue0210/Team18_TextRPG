@@ -60,7 +60,7 @@ namespace Sparta_Team18_TextRPG
                 switch (input)
                 {
                     case "0":
-                        MainMenu main = new MainMenu(player);
+                        MainMenu main = new MainMenu();
                         main.DisplayMainMenu();
                         return;
                     default:

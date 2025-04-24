@@ -21,7 +21,7 @@ namespace Sparta_Team18_TextRPG
             string StartAnswer;
             InputValidator inputValidator = new InputValidator();
 
-            Console.Write("스파르타 던전에 오신 여러분 환영합니다.");
+            Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
 
             // 플레이어의 닉네임이 정해져 있지 않을 경우, 닉네임 설정 실행
             if (inputValidator.CheckEmptyInput(GameManager.Instance.player.Name))

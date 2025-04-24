@@ -72,7 +72,7 @@ namespace Sparta_Team18_TextRPG
             get
             {
 
-                return this.attack + EquipmentManager.GetAttackBonus(this);
+                return this.attack + EquipmentManager.GetAttackBonus();
             }
             set
             {
@@ -85,7 +85,7 @@ namespace Sparta_Team18_TextRPG
             get
             {
 
-                return this.defense + EquipmentManager.GetDefenseBonus(this);
+                return this.defense + EquipmentManager.GetDefenseBonus();
             }
             set
             {
@@ -98,7 +98,7 @@ namespace Sparta_Team18_TextRPG
             get
             {
 
-                return this.health + EquipmentManager.GetHpBonus(this);
+                return this.health + EquipmentManager.GetHpBonus();
             }
             set
             {

@@ -50,7 +50,7 @@ namespace Sparta_Team18_TextRPG
                     case "1":
                         //상태창 로직
                        
-                        new StatusUI(player).ShowStat();
+                        new StatusUI().ShowStat();
                         break;
                     case "2":
                         // 전투시작 로직
@@ -58,11 +58,11 @@ namespace Sparta_Team18_TextRPG
                         break;
 
                         case "3":
-                            new InventoryUI(player).ShowInventory();
+                            new InventoryUI().ShowInventory();
                         break;
 
                     case "4":
-                        new ShopManager().OpenShop(player);
+                        new ShopManager().ShowShop();
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n\n\n");

@@ -10,12 +10,7 @@ namespace Team18_TextRPG
 {
     class InventoryUI
     {
-        private Player player; //외부에서 받은 player 객체 lord
-
-        public InventoryUI(Player player)
-        {
-            this.player = player;
-        }
+   
 
         public void ShowInventory()
         {
@@ -26,7 +21,7 @@ namespace Team18_TextRPG
                 Console.Clear();
                 Console.WriteLine("\n====인벤토리====\n");
                 Console.WriteLine("\n+====================+");
-                var inv = EquipmentManager.GetInventory(player); //player의 인벤토리를 inv에 저장. 리스트형태
+                var inv = EquipmentManager.GetInventory(); //player의 인벤토리를 inv에 저장. 리스트형태
 
                 if (inv.Count == 0)
                 {
@@ -79,11 +74,11 @@ namespace Team18_TextRPG
 
                     if (selected.IsEquipped)
                     {
-                        EquipmentManager.Unequip(player, selected);
+                        EquipmentManager.Unequip(GameManager.Instance.player, selected);
                     }
                     else
                     {
-                        EquipmentManager.Equip(player, selected);
+                        EquipmentManager.Equip(GameManager.Instance.player, selected);
                     }
                 }
             } while (input != "0");

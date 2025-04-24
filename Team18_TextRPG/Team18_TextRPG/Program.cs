@@ -19,12 +19,12 @@ namespace Team18_TextRPG
 {
     internal class Program
     {
-        public void Main()
+        static void Main()
         {
             ChangeView(EViewName.Main);
         }
 
-        public void ChangeView(EViewName viewName)
+        public static void ChangeView(EViewName viewName)
         {
             switch (viewName)
             {
@@ -42,7 +42,7 @@ namespace Team18_TextRPG
                     break;
                 case EViewName.Shop:
                     ShopManager shop = new ShopManager();
-                    shop.OpenShop();
+                    shop.ShowShop();
                     break;
                 case EViewName.Battle:
                     Battle battle = new Battle();

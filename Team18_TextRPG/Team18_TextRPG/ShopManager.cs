@@ -20,7 +20,7 @@ namespace Team18_TextRPG
 
         }
 
-        public void OpenShop(Player player)
+        public void ShowShop()
         {
             while (true)
             {
@@ -29,7 +29,7 @@ namespace Team18_TextRPG
                 Console.WriteLine("\n 아이템 목록");
                 Console.WriteLine("\n+====================+");
 
-                List<Item> myInventory = EquipmentManager.GetInventory(player);
+                List<Item> myInventory = EquipmentManager.GetInventory();
 
                 for (int i = 0; i < shopItems.Count; i++)
                 {
@@ -54,11 +54,11 @@ namespace Team18_TextRPG
                         Console.WriteLine("이미 구매한 아이템입니다.");
                     }
 
-                    else if (player.Gold >= selectedItem.Price)
+                    else if (GameManager.Instance.player.Gold >= selectedItem.Price)
                     {
-                        player.Gold -= selectedItem.Price;
+                        GameManager.Instance.player.Gold -= selectedItem.Price;
 
-                        EquipmentManager.GetInventory(player).Add(selectedItem);
+                        EquipmentManager.GetInventory().Add(selectedItem);
                         Console.WriteLine($"{selectedItem.itemName}을(를) 구매했습니다.");
                     }
                     else

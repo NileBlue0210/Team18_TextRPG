@@ -28,14 +28,13 @@ namespace Sparta_Team18_TextRPG
             {
                 SetNickName();
             }
-            
-            Console.Clear();
-            Console.Write("\n");
-            Console.Write("이제 전투를 시작할 수 있습니다.");
-            Console.Write("\n");
 
             while (true)
             {
+                Console.Clear();
+                Console.Write("\n");
+                Console.Write("이제 전투를 시작할 수 있습니다.");
+                Console.Write("\n");
                 Console.WriteLine("1.상태보기");
                 Console.WriteLine("2.전투시작");
                 Console.WriteLine("3.인벤토리");

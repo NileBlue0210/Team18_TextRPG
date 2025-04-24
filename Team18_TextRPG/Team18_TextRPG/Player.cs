@@ -24,10 +24,12 @@ namespace Sparta_Team18_TextRPG
         private int attack = 10;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
         private int defense = 5;  // 방어력
         private int health = 100;   // 체력
-        public int attack = 10;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
-        public int defense = 5;  // 방어력
-        public int health = 100;   // 체력
         private int gold = 1500; // 골드
+
+        public int Attack =>attack;
+        public int Defense =>defense;
+        public int Health =>health;
+
 
         public PlayerStatus playerState = PlayerStatus.Normal; // 플레이어 상태
 
@@ -64,12 +66,12 @@ namespace Sparta_Team18_TextRPG
                 classCode = value;
             }
         }
-        public int Attack
+
         public int TotalAttack
         {
             get
             {
-                return attack;
+
                 return this.attack + EquipmentManager.GetAttackBonus(this);
             }
             set
@@ -77,12 +79,12 @@ namespace Sparta_Team18_TextRPG
                 attack = value;
             }
         }
-        public int Defense
+
         public int TotalDefense
         {
             get
             {
-                return defense;
+
                 return this.defense + EquipmentManager.GetDefenseBonus(this);
             }
             set
@@ -90,12 +92,12 @@ namespace Sparta_Team18_TextRPG
                 defense = value;
             }
         }
-        public int Health
+
         public int TotalHp
         {
             get
             {
-                return health;
+
                 return this.health + EquipmentManager.GetHpBonus(this);
             }
             set
@@ -122,8 +124,7 @@ namespace Sparta_Team18_TextRPG
             }
         }
 
-<<<<<<< HEAD
-=======
+
         public int PlayerAttack()
         {
             // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
@@ -138,7 +139,7 @@ namespace Sparta_Team18_TextRPG
             return randomDamage;
         }
 
->>>>>>> Stat_Sangwon
+
         public void PlayerHit()
         {
 
@@ -162,7 +163,6 @@ namespace Sparta_Team18_TextRPG
             Console.Write($"Lv. {this.PlayerLevel} ");
             Console.Write($"이름: {this.Name} ");
             Console.WriteLine($"({classString.ConvertClassCodeToString(this.ClassCode)})\n");
-            Console.WriteLine($"체력: {this.Health}\n");
             Console.WriteLine($"체력: {this.TotalHp}\n");
             Console.WriteLine("+--------------------------------+\n");
         }

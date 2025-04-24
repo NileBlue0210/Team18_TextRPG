@@ -30,15 +30,15 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"\n+====================+");
                 Console.WriteLine($"\n Lv.{player.PlayerLevel} | {player.Name} | {className} \n");
 
-                int baseAtk = player.attack;
+                int baseAtk = player.Attack;
                 int bonusAtk = EquipmentManager.GetEquipped(player).Sum(it => it.AttackBouns);
                 PrintStatLine("\n 공격력", baseAtk, bonusAtk);
 
-                int baseDef = player.defense;
+                int baseDef = player.Defense;
                 int bonusDef = EquipmentManager.GetEquipped(player).Sum(it => it.DefenseBouns);
                 PrintStatLine("\n 방어력", baseDef, bonusDef);
 
-                int baseHp = player.health;
+                int baseHp = player.Health;
                 int bonusHp = EquipmentManager.GetEquipped(player).Sum(it => it.HealthBouns);
                 PrintStatLine("\n 체 력", baseHp, bonusHp);
                 //EquipmentManager.GetEquipped(player): 플레이어가 장착중인 장비리스트 반환

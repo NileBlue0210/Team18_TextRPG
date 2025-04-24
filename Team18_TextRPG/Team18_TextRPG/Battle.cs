@@ -14,6 +14,7 @@ namespace Sparta_Team18_TextRPG
 
         Player player = new Player();
         MainMenu mainmenu = new MainMenu();
+        BattleManager battleManager = new BattleManager();
         
         private List<Monster> monsters = new List<Monster>();
         public void BattleStart()
@@ -69,7 +70,6 @@ namespace Sparta_Team18_TextRPG
         private void PlayerTurn(Player player, List<Monster> monsters)
         {
             string userInput = "";
-            InputValidator inputValidator = new InputValidator();   // 플레이어 입력 유효성 검사 클래스
 
             Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
 
@@ -108,10 +108,10 @@ namespace Sparta_Team18_TextRPG
                         {
                             Monster target = monsters[monsterIndex - 1];
 
-                            //int battleDamage = player.PlayerAttack(target); >> 데미지 계산은 몬스터CS에서
-                            // 플레이어 데미지
-                            //target.Health -= battleDamage; // 플레이어와 몬스터 스크립트에서 계산.
-                            target.MonsterHit(player.Attack); // 적: 피격 시 메서드 호출
+                            int damage = battleManager.GetDamageValue(player);
+                            int totalDamage = battleManager.GetHitDamageValue(target, damage);
+
+                            target.MonsterHit(totalDamage); // 적: 피격 시 메서드 호출
 
                             if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
                             {
@@ -151,9 +151,10 @@ namespace Sparta_Team18_TextRPG
             {
                 if (monster.Health <= 0) continue; // 몬스터 체력: 0 되면 정지
                 if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
-                
-                int damage = (int)monster.Attack;
-                player.Health -= damage;
+
+                int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
+                int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
+                player.Health -= totalDamage;
 
                 Console.WriteLine($"{monster.Name} 공격! | -{damage} 피해");
                 Console.WriteLine($"플레이어 남은 체력: {player.Health}");

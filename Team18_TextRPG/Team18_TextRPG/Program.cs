@@ -19,12 +19,12 @@ namespace Team18_TextRPG
 {
     internal class Program
     {
-        public void Main()
+        static void Main()
         {
             ChangeView(EViewName.Main);
         }
 
-        public void ChangeView(EViewName viewName)
+        public static void ChangeView(EViewName viewName)
         {
             switch (viewName)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Team18_TextRPG;
 
 // to do: 추후 별도 파일에 enum모두 정리할 것
 public enum PlayerStatus
@@ -23,6 +24,9 @@ namespace Sparta_Team18_TextRPG
         private int attack = 10;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
         private int defense = 5;  // 방어력
         private int health = 100;   // 체력
+        public int attack = 10;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
+        public int defense = 5;  // 방어력
+        public int health = 100;   // 체력
         private int gold = 1500; // 골드
 
         public PlayerStatus playerState = PlayerStatus.Normal; // 플레이어 상태
@@ -61,10 +65,12 @@ namespace Sparta_Team18_TextRPG
             }
         }
         public int Attack
+        public int TotalAttack
         {
             get
             {
                 return attack;
+                return this.attack + EquipmentManager.GetAttackBonus(this);
             }
             set
             {
@@ -72,10 +78,12 @@ namespace Sparta_Team18_TextRPG
             }
         }
         public int Defense
+        public int TotalDefense
         {
             get
             {
                 return defense;
+                return this.defense + EquipmentManager.GetDefenseBonus(this);
             }
             set
             {
@@ -83,10 +91,12 @@ namespace Sparta_Team18_TextRPG
             }
         }
         public int Health
+        public int TotalHp
         {
             get
             {
                 return health;
+                return this.health + EquipmentManager.GetHpBonus(this);
             }
             set
             {
@@ -112,6 +122,23 @@ namespace Sparta_Team18_TextRPG
             }
         }
 
+<<<<<<< HEAD
+=======
+        public int PlayerAttack()
+        {
+            // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
+            // to do: BattleManager같은 클래스를 만들어서 몬스터 데미지 시퀀스와 통합
+            int maxDamage = (int)(this.TotalAttack * 1.1f);
+            int minDamage = (int)(this.TotalAttack * 0.9f);
+
+            Random random = new Random();
+
+            int randomDamage = random.Next(minDamage, maxDamage + 1);   // to do: 추후 float로 바꿀 경우 nextdouble을 사용. maxDamage + 1 부분을 float일 경우 어떻게 할 것인지 고려해야 함
+
+            return randomDamage;
+        }
+
+>>>>>>> Stat_Sangwon
         public void PlayerHit()
         {
 
@@ -136,6 +163,7 @@ namespace Sparta_Team18_TextRPG
             Console.Write($"이름: {this.Name} ");
             Console.WriteLine($"({classString.ConvertClassCodeToString(this.ClassCode)})\n");
             Console.WriteLine($"체력: {this.Health}\n");
+            Console.WriteLine($"체력: {this.TotalHp}\n");
             Console.WriteLine("+--------------------------------+\n");
         }
     }

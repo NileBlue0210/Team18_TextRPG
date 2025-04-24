@@ -65,29 +65,6 @@ namespace Sparta_Team18_TextRPG
         MainMenu mainmenu = new MainMenu();
         
         private List<Monster> monsters = new List<Monster>();
-
-
-        public void PlayerInfo()
-        {
-            //sb.AppendLine("스트링빌더 적용 중");
-            //sb.AppendLine("\n+===================================+\n");
-            //sb.AppendLine("[내 정보]\n");
-            //sb.Append($"Lv. {player.PlayerLevel} ");
-            //sb.Append($"이름: {player.Name} ");
-            //sb.AppendLine($"({player.ClassCode})\n");
-            //sb.AppendLine($"체력: {player.Health}");
-            //sb.AppendLine("\n+-----------------------------------+\n");
-            //string result = sb.ToString();
-            //Console.WriteLine( result );
-            Console.WriteLine("\n");
-            Console.WriteLine("\n+================================+\n");
-            Console.WriteLine("[내 정보]\n");
-            Console.Write($"Lv. {player.PlayerLevel} ");
-            Console.Write($"이름: {player.Name} ");
-            Console.WriteLine($"({player.ClassCode})\n");
-            Console.WriteLine($"체력: {player.Health}\n");
-            Console.WriteLine("+--------------------------------+\n");
-        }
         public void BattleStart()
         {
             ChangeTextFormat changeTextFormat = new ChangeTextFormat();
@@ -98,14 +75,14 @@ namespace Sparta_Team18_TextRPG
             {
                 Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].Health} | 공격력: {monsters[i].Attack}");
             }
-            PlayerInfo();
-            Console.WriteLine("전투 개시");
-            Console.WriteLine("전투를 시작합니다.");
+            player.ShowPlayerInfo();
 
+            Console.WriteLine("전투를 시작합니다.");
+            Console.Write("\n");
 
             Console.WriteLine("1. 전투 시작");
             Console.WriteLine("2. 도망가기");
-            Console.Write(">> ");
+            GameManager.Instance.Ask();
             string input = Console.ReadLine();
 
             switch (input)

@@ -30,7 +30,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(0, 4);
-                Console.WriteLine($"던전에서 몬스터 {battle.defeatCount}마리를 잡았습니다.");
+                Console.WriteLine($"던전에서 몬스터 {count}마리를 잡았습니다.");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(4, 8);
                 Console.WriteLine($"{player.PlayerLevel}");

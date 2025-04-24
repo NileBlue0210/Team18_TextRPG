@@ -15,6 +15,55 @@ public enum MonsterStatus
 
 namespace Sparta_Team18_TextRPG
 {
+    public class MonsterFactory
+    {
+        private static Random random = new Random();
+        private static List<Monster> monsters = new List<Monster>();
+
+        private static Dictionary<string, (int level, int minHealth, int maxHealth, int minAttack, int maxAttack)> monsterStats =
+        new Dictionary<string, (int, int, int, int, int)>
+        {
+            { "  슬라임  ", (1, 10, 20, 3, 8) },
+            { "  고블린  ", (2, 15, 25, 10, 20) },
+            { "   좀비   ", (3, 16, 26, 3, 25) },
+            { " 스켈레톤 ", (5, 30, 45, 10, 12) },
+            { "   늑대   ", (7, 35, 60, 12, 15) },
+            { "   거미   ", (7, 20, 27, 3, 13) },
+            { "   트롤   ", (10, 80, 120, 20, 35) },
+            { "   오크   ", (15, 40, 50, 15, 25) },
+            { "  사냥꾼  ", (12, 35, 50, 22, 27) },
+            { "  암살자  ", (20, 23, 34, 12, 37) },
+            { " 흑마법사 ", (24, 17, 29, 33, 40) },
+        };
+
+        public static List<Monster> GetOrCreateMonsters()
+        {
+            if (monsters.Count == 0) // 기존 몬스터 리스트가 비어 있을 때만 생성
+            {
+                int monsterCount = random.Next(1, 5);
+                List<string> monsterNames = new List<string>(monsterStats.Keys);
+
+                for (int i = 0; i < monsterCount; i++)
+                {
+                    string name = monsterNames[random.Next(monsterNames.Count)];
+                    var stats = monsterStats[name];
+
+                    int level = stats.level + random.Next(1, 4);
+                    int health = random.Next(stats.minHealth, stats.maxHealth + 1);
+                    int attack = random.Next(stats.minAttack, stats.maxAttack + 1);
+
+                    monsters.Add(new Monster(level, name, health, attack, MonsterStatus.Normal));
+                }
+            }
+            return monsters;
+        }
+
+        public static void ClearMonsters()
+        {
+            monsters.Clear();
+        }
+    }
+
     public class Monster
     {
         // 몬스터 스테이터스 제어용 프로퍼티

@@ -4,19 +4,11 @@ namespace Sparta_Team18_TextRPG
 {
     public class EndStageView
     {
-        public void EndStage(Player player)
+        public void EndStage(bool isVictory, List<Monster>? monsters)
         {
-            ConvertClassCode convertClassCode = new ConvertClassCode();
-            string result = "";
 
-            if (player.Health > 0)
-            {
-                result = "You Victory";
-            }
-            else if (player.Health <= 0)
-            {
-                result = "You Lose";
-            }
+            ConvertClassCode convertClassCode = new ConvertClassCode();
+            string result = isVictory ? "You Victory" : "You Lose";
 
             while (true)
             {
@@ -26,24 +18,28 @@ namespace Sparta_Team18_TextRPG
 
                 Console.WriteLine("+======================+");
                 Console.WriteLine("내 정보\n");
-                Console.WriteLine($"{player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
+                Console.WriteLine($"{GameManager.Instance.player.Name} ({convertClassCode.ConvertClassCodeToString(GameManager.Instance.player.ClassCode)})");
                 Console.WriteLine($"LV:");
                 Console.Write($"체력:");
                 Console.WriteLine($"골드:");
 
+                //레벨,체력,골드 시간차 표기 연출
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(0, 3);
                 Thread.Sleep(1000);
+                Console.SetCursorPosition(0, 3);
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
+                Console.SetCursorPosition(0, 4);
+                Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
+                Thread.Sleep(1000);
                 Console.SetCursorPosition(4, 8);
-                Console.WriteLine($"{player.PlayerLevel}");
+                Console.WriteLine($"{GameManager.Instance.player.PlayerLevel}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(6, 9);
-                Console.Write($"{player.Health}");
+                Console.Write($"{GameManager.Instance.player.Health}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(6, 10);
-                Console.Write($"{player.Gold}");
+                Console.Write($"{GameManager.Instance.player.Gold}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 17);
 

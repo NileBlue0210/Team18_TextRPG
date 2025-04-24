@@ -43,7 +43,6 @@ namespace Sparta_Team18_TextRPG
 
                 Console.WriteLine("\n0. 나가기");
                 Console.ReadLine();
-
             }
         }
         private void PrintStatLine(string label, int baseValue, int bonusValue)

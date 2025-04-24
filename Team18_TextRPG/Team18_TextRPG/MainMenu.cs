@@ -18,23 +18,20 @@ namespace Sparta_Team18_TextRPG
 
         public void DisplayMainMenu()
         {
-<<<<<<< HEAD
-            Status status = new Status(player);
+
             Battle battle = new Battle();
-=======
-            //StatusUI status = new StatusUI(player);
-            Battle battle = new Battle(player);
->>>>>>> Stat_Sangwon
+
+       
+
             Console.Clear();
             string StartAnswer;
 
             do
             {
-<<<<<<< HEAD
-=======
+
                 Console.Clear();
                 
->>>>>>> Stat_Sangwon
+
                 Console.Write(@"스파르타 던전에 오신 여러분 환영합니다.");
                 Console.Write("\n이제 전투를 시작할 수 있습니다.");
 

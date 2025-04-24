@@ -43,7 +43,9 @@ namespace Sparta_Team18_TextRPG
         {
             Player player = new Player();
 
-            Console.WriteLine($"게임 오버. {player.Name}이 쓰러졌습니다.");
+            EndStageView endStageView = new EndStageView();
+
+            endStageView.EndStage();
         }
     }
 }

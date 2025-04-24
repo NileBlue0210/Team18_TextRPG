@@ -95,6 +95,7 @@ namespace Sparta_Team18_TextRPG
                 // 플레이어의 체력이 0이 되면 게임 오버 처리
                 if (health <= 0)
                 {
+                    health = 0;
                     GameManager.Instance.GameOver();
                 }
             }
@@ -109,20 +110,6 @@ namespace Sparta_Team18_TextRPG
             {
                 gold = value;
             }
-        }
-
-        public int PlayerAttack(Monster targetMonster)
-        {
-            // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
-            // to do: BattleManager같은 클래스를 만들어서 몬스터 데미지 시퀀스와 통합
-            int maxDamage = (int)(this.Attack * 1.1f);
-            int minDamage = (int)(this.Attack * 0.9f);
-
-            Random random = new Random();
-
-            int randomDamage = random.Next(minDamage, maxDamage + 1);   // to do: 추후 float로 바꿀 경우 nextdouble을 사용. maxDamage + 1 부분을 float일 경우 어떻게 할 것인지 고려해야 함
-
-            return randomDamage;
         }
 
         public void PlayerHit()

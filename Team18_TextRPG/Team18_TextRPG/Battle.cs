@@ -63,6 +63,7 @@ namespace Sparta_Team18_TextRPG
 
         Player player = new Player();
         MainMenu mainmenu = new MainMenu();
+        BattleManager battleManager = new BattleManager();
         
         private List<Monster> monsters = new List<Monster>();
         public void BattleStart()
@@ -114,7 +115,6 @@ namespace Sparta_Team18_TextRPG
         private void PlayerTurn(Player player, List<Monster> monsters)
         {
             string userInput = "";
-            InputValidator inputValidator = new InputValidator();   // 플레이어 입력 유효성 검사 클래스
 
             Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
 
@@ -154,9 +154,10 @@ namespace Sparta_Team18_TextRPG
                         {
                             Monster target = monsters[monsterIndex - 1];
 
-                            int battleDamage = player.PlayerAttack(target);
+                            int damage = battleManager.GetDamageValue(player);
+                            int totalDamage = battleManager.GetHitDamageValue(target, damage);
 
-                            target.Health -= battleDamage;
+                            target.Health -= totalDamage;
 
                             Console.WriteLine($"{target.Name}에게 공격!");
 
@@ -190,20 +191,13 @@ namespace Sparta_Team18_TextRPG
             {
                 if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
 
-                int damage = (int)monster.Attack;
-                player.Health -= damage;
+                int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
+                int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
+                player.Health -= totalDamage;
 
                 Console.WriteLine($"{monster.Name} 공격! | -{damage} 피해");
                 Console.WriteLine($"플레이어 남은 체력: {player.Health}");
                 Console.ReadLine();
-            }
-            if (player.Health <= 0)
-            {
-                GameManager.Instance.GameOver();
-            }
-            else
-            {
-                //몬스터 상태 변화()
             }
         }
 

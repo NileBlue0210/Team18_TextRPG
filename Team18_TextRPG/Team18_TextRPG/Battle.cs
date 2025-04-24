@@ -134,7 +134,6 @@ namespace Sparta_Team18_TextRPG
                             if (player.Health <= 0) // 플레이어 죽음
                             if (player.TotalHp <= 0) // 플레이어 죽음
                             {
-                                GameManager.Instance.GameOver();
                                 monsters.Clear();
                                 Console.ReadLine();
                                 return;
@@ -159,7 +158,6 @@ namespace Sparta_Team18_TextRPG
                 int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
                 int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
                 player.TotalHp -= totalDamage;
-
 
                 Console.WriteLine($"{monster.Name} 공격! | -{damage} 피해");
                 Console.WriteLine($"플레이어 남은 체력: {player.TotalHp}");

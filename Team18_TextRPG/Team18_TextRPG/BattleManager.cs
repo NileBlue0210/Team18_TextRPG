@@ -42,7 +42,12 @@ namespace Team18_TextRPG
         {
             int result = 0;
 
-            result = player.TotalDefense - damage;
+            result = damage - player.TotalDefense;
+
+            if (result <= 0)
+            {
+                result = 0;
+            }
 
             return result;
         }

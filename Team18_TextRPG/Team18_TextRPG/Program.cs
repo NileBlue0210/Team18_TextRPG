@@ -17,7 +17,7 @@ namespace Team18_TextRPG
             mainMenu.Nickname();
             mainMenu.DisplayMainMenu();
 
-            Status status = new Status(player);
+            StatusUI status = new StatusUI(player);
             status.ShowStat();
         }
     }

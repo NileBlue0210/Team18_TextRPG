@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Team18_TextRPG;
 
 namespace Sparta_Team18_TextRPG
 {
@@ -17,18 +18,30 @@ namespace Sparta_Team18_TextRPG
 
         public void DisplayMainMenu()
         {
+<<<<<<< HEAD
             Status status = new Status(player);
             Battle battle = new Battle();
+=======
+            //StatusUI status = new StatusUI(player);
+            Battle battle = new Battle(player);
+>>>>>>> Stat_Sangwon
             Console.Clear();
             string StartAnswer;
 
             do
             {
+<<<<<<< HEAD
+=======
+                Console.Clear();
+                
+>>>>>>> Stat_Sangwon
                 Console.Write(@"스파르타 던전에 오신 여러분 환영합니다.");
                 Console.Write("\n이제 전투를 시작할 수 있습니다.");
 
                 Console.WriteLine("\n1.상태보기");
                 Console.WriteLine("2.전투시작");
+                Console.WriteLine("3.인벤토리");
+                Console.WriteLine("4.상점");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요");
 
@@ -40,11 +53,20 @@ namespace Sparta_Team18_TextRPG
                 {
                     case "1":
                         //상태창 로직
-                        status.ShowStat();
+                       
+                        new StatusUI(player).ShowStat();
                         break;
                     case "2":
                         // 전투시작 로직
                         battle.BattleStart();
+                        break;
+
+                        case "3":
+                            new InventoryUI(player).ShowInventory();
+                        break;
+
+                    case "4":
+                        new ShopManager().OpenShop(player);
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n\n\n");

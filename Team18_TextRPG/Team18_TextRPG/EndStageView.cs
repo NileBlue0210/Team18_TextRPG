@@ -4,21 +4,12 @@ namespace Sparta_Team18_TextRPG
 {
     public class EndStageView
     {
-        public void EndStage(Player player)
+        public void EndStage(bool isVictory, List <Monster> monster, Player player, Battle battle)
         {
+            
             ConvertClassCode convertClassCode = new ConvertClassCode();
-            string result = "";
-
-            if (player.Health > 0)
-            {
-                result = "You Victory";
-            }
-            else if (player.Health <= 0)
-            {
-                result = "You Lose";
-            }
-
-            Console.WriteLine("\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0");
+            string result = isVictory ? "You Victory" : "You Lose";
+            int count = battle.defeatCount;
 
             while (true)
             {
@@ -30,21 +21,24 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("내 정보\n");
                 Console.WriteLine($"{player.Name} ({convertClassCode.ConvertClassCodeToString(player.ClassCode)})");
                 Console.WriteLine($"LV:");
-                Console.WriteLine($"체력:");
+                Console.Write($"체력:");
                 Console.WriteLine($"골드:");
 
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(0, 3);
                 Thread.Sleep(1000);
+                Console.SetCursorPosition(0, 3);
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(4, 10);
+                Console.SetCursorPosition(0, 4);
+                Console.WriteLine($"던전에서 몬스터 {battle.defeatCount}마리를 잡았습니다.");
+                Thread.Sleep(1000);
+                Console.SetCursorPosition(4, 8);
                 Console.WriteLine($"{player.PlayerLevel}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 11);
-                Console.WriteLine($"{player.Health}");
+                Console.SetCursorPosition(6, 9);
+                Console.Write($"{player.Health}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 12);
+                Console.SetCursorPosition(6, 10);
                 Console.Write($"{player.Gold}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 17);
@@ -62,7 +56,7 @@ namespace Sparta_Team18_TextRPG
                 switch (input)
                 {
                     case "0":
-                        MainMenu main = new MainMenu(player);
+                        MainMenu main = new MainMenu();
                         main.DisplayMainMenu();
                         return;
                     default:

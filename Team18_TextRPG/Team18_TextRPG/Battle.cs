@@ -51,6 +51,7 @@ namespace Sparta_Team18_TextRPG
     public class Battle
     {
         private List<Monster> monsters = new List<Monster>(); // 몬스터 리스트 유지.
+        public int defeatCount{ get; private set; } = 0;
 
         public void BattleStart()
         {
@@ -164,6 +165,7 @@ namespace Sparta_Team18_TextRPG
 
                         Console.WriteLine($"{target.Name}을 처치했습니다.");
                         monsters.RemoveAt(monsterIndex - 1); // 몬스터 리스트에서 제거 : 임시
+                        defeatCount++;
                     }
                     else
                     {

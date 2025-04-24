@@ -26,9 +26,11 @@ namespace Sparta_Team18_TextRPG
             }
         }
 
+        public Player player { get; private set; }
+
         private GameManager()
         {
-
+            player = new Player();
         }
 
         // 질문 텍스트 함수화
@@ -41,11 +43,9 @@ namespace Sparta_Team18_TextRPG
 
         public void GameOver()
         {
-            Player player = new Player();
-
             EndStageView endStageView = new EndStageView();
 
-            endStageView.EndStage(false);
+            // endStageView.EndStage(false);
         }
     }
 }

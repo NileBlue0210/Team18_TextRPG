@@ -45,7 +45,7 @@ namespace Sparta_Team18_TextRPG
 
             EndStageView endStageView = new EndStageView();
 
-            endStageView.EndStage();
+            endStageView.EndStage(false);
         }
     }
 }

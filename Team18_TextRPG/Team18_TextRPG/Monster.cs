@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Team18_TextRPG;
 
 public enum MonsterStatus
 {
@@ -73,6 +74,7 @@ namespace Sparta_Team18_TextRPG
         public float Attack { get; set; }
         public HashSet<MonsterStatus> Status { get; set; } // 몬스터 여러 상태 저장
         Player player = new Player();
+        BattleManager battleManager = new BattleManager();
 
         public Monster(int level, string name, int health,  int attack, MonsterStatus status  )
         {
@@ -95,10 +97,10 @@ namespace Sparta_Team18_TextRPG
         public void MonsterHit(int damage) //몬스터가 받는 데미지 계산은 여기서.
         {
             Console.Clear();
-            Health -= player.PlayerAttack(); // 전투 테스트용(여기서 데미지 계산)
+            Health -= damage; // 전투 테스트용(여기서 데미지 계산)
             if (Health > 0 && Status.Contains(MonsterStatus.IsAlive))
             {
-                Console.WriteLine($"{player.PlayerAttack()} 데미지!!");
+                Console.WriteLine($"{damage} 데미지!!");
                 Console.ReadLine();
             }
             while (true)

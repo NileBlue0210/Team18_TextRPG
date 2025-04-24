@@ -111,12 +111,10 @@ namespace Sparta_Team18_TextRPG
                     Status.Clear();
                     Status.Add(MonsterStatus.Dead);
                     Console.WriteLine($"{Name}을(를) 처치했다!");
-                    Console.ReadLine();
                 }
                 else if (Status.Contains(MonsterStatus.Dead))
                 {
                     Console.WriteLine($"{Name}은(는) 이미 쓰러졌다! 몬스터들이 덤벼든다!");
-                    Console.ReadLine();
                 }
                 return;
             }

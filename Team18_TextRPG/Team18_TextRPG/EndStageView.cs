@@ -6,7 +6,7 @@ namespace Sparta_Team18_TextRPG
     {
         public void EndStage(bool isVictory, List<Monster>? monsters)
         {
-
+            Console.Clear();
             ConvertClassCode convertClassCode = new ConvertClassCode();
             string result = isVictory ? "You Victory" : "You Lose";
 
@@ -30,7 +30,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(0, 4);
-                Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
+                Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다."); // 이 부분에 if문으로 패배 시 다른 문구가 나오게 하면 좋음.
                 Thread.Sleep(1000);
                 Console.SetCursorPosition(4, 8);
                 Console.WriteLine($"{GameManager.Instance.player.PlayerLevel}");
@@ -50,20 +50,24 @@ namespace Sparta_Team18_TextRPG
                 Console.Write("0.");
                 Console.ResetColor();
                 Console.Write(" 다음");
-
+                monsters.Clear(); // 몬스터 리스트 초기화
 
                 string input = Console.ReadLine();
                 switch (input)
                 {
-                    case "0":
+                    //case "0":
+                    //    MainMenu main = new MainMenu();
+                    //    main.DisplayMainMenu();
+                    //    return;
+                    //default:
+                    //    Console.Clear();
+                    //    Console.WriteLine("잘못된 입력입니다..");
+                    //    continue;
+                    default:
                         MainMenu main = new MainMenu();
                         main.DisplayMainMenu();
                         return;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("잘못된 입력입니다..");
-                        continue;
-                }
+                }       
             }
         }
     }

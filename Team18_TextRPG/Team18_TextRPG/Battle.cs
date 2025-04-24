@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Numerics;
 using System.Text;
 using System.Threading;
@@ -10,12 +11,12 @@ namespace Sparta_Team18_TextRPG
 {
     public class Battle
     {
-        StringBuilder sb = new StringBuilder(); //문자빌더
-
         Player player = new Player();
+        
         MainMenu mainmenu = new MainMenu();
         BattleManager battleManager = new BattleManager();
-        
+        EndStageView endStageView = new EndStageView();
+
         private List<Monster> monsters = new List<Monster>();
         public void BattleStart()
         {
@@ -29,7 +30,7 @@ namespace Sparta_Team18_TextRPG
             {
                 Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
             }
-            player.ShowPlayerInfo();
+            GameManager.Instance.player.ShowPlayerInfo();
 
             Console.WriteLine("전투를 시작합니다.");
             Console.Write("\n");
@@ -113,7 +114,7 @@ namespace Sparta_Team18_TextRPG
                             int totalDamage = battleManager.GetHitDamageValue(target, damage);
 
                             target.MonsterHit(totalDamage); // 적: 피격 시 메서드 호출
-
+                            
 
                             if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
                             {
@@ -130,14 +131,12 @@ namespace Sparta_Team18_TextRPG
                             {
                                 MonsterAttack(); // 몬스터 반격
                             }
-
-                            if (player.Health <= 0) // 플레이어 죽음
-                            if (player.TotalHp <= 0) // 플레이어 죽음
-                            {
-                                monsters.Clear();
-                                Console.ReadLine();
-                                return;
-                            }
+                            //if (player.Health <= 0) // 플레이어 죽음
+                            //{
+                            //    GameManager.Instance.GameOver();
+                            //    Console.ReadLine();
+                            //    return;
+                            //}
                         }
                         break;
                 }
@@ -152,30 +151,48 @@ namespace Sparta_Team18_TextRPG
             foreach (Monster monster in monsters)
             {
                 if (monster.Health <= 0) continue; // 몬스터 체력: 0 되면 정지
-
                 if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
 
-                int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
+                //int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
                 int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
                 player.TotalHp -= totalDamage;
 
-                Console.WriteLine($"{monster.Name} 공격! | -{damage} 피해");
-                Console.WriteLine($"플레이어 남은 체력: {player.TotalHp}");
-                Console.ReadLine();
+                Thread.Sleep(1000);
+                Console.Write($"\n적: {monster.Name} 공격!\t");
+                ChangeTextFormat.ChangeTextColor(totalDamage.ToString(), ConsoleColor.Red);
+                Console.WriteLine("");
+                Thread.Sleep(800);
+                Console.Write($"이름: {player.Name} | 남은 체력: ");
+                ChangeTextFormat.ChangeTextColor(player.TotalHp.ToString(), ConsoleColor.Yellow);
+                Console.WriteLine("");
+
             }
-            Console.Clear();
+            if (player.Health <= 0)
+            {
+                monsters.Clear();
+                GameManager.Instance.GameOver();
+                
+            }
+            Console.WriteLine("\n계속 하려면 Enter를 입력하세요.");
+            Console.Write(">> ");
+            Console.ReadLine();
+            return;
         }
 
         public void BattleEnd()
         {
+            Thread.Sleep(1000);
             Console.Clear();
             Console.WriteLine("모든 적을 처치했습니다! 마을로 돌아갑니다.");
-            
-            monsters.Clear(); // 리스트 초기화
+            Thread.Sleep(1000);
+            //int defeatedMonsterCount = monsters.Count(m => m.Status.Contains(MonsterStatus.Dead));
+            endStageView.EndStage(false, monsters);
 
-            Console.WriteLine("계속 하려면 Enter를 누르세요.");
-            Console.Write(">> ");
-            Console.ReadLine();
+            //Console.WriteLine("계속 하려면 Enter를 누르세요.");
+            //Console.Write(">> ");
+            //monsters.Clear(); // 리스트 초기화
+
+            //Console.ReadLine();
             return;
         }
     }

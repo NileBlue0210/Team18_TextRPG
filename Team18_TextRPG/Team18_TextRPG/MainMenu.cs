@@ -58,7 +58,7 @@ namespace Sparta_Team18_TextRPG
                         break;
 
                         case "3":
-                            new InventoryUI().ShowInventory();
+                        new InventoryUI().ShowInventory();
                         break;
 
                     case "4":

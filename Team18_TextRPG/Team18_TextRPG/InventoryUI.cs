@@ -10,7 +10,7 @@ namespace Team18_TextRPG
 {
     class InventoryUI
     {
-        private Player player;
+        private Player player; //외부에서 받은 player 객체 lord
 
         public InventoryUI(Player player)
         {
@@ -26,7 +26,7 @@ namespace Team18_TextRPG
                 Console.Clear();
                 Console.WriteLine("\n====인벤토리====\n");
                 Console.WriteLine("\n+====================+");
-                var inv = EquipmentManager.GetInventory(player);
+                var inv = EquipmentManager.GetInventory(player); //player의 인벤토리를 inv에 저장. 리스트형태
 
                 if (inv.Count == 0)
                 {
@@ -34,20 +34,17 @@ namespace Team18_TextRPG
                 }
                 else
                 {
-                    for (int i = 0; i < inv.Count; i++)
+                    for (int i = 0; i < inv.Count; i++) //리스트형태라서 count
                     {
                         var item = inv[i];
 
                         string status = item.IsEquipped ? "[E]" : "[-]";
 
                         List<string> statPart = new List<string>();
-                        if (item.AttackBouns != 0) statPart.Add($"공격력 +{item.AttackBouns}");
-                        if (item.DefenseBouns != 0) statPart.Add($"방어력 +{item.DefenseBouns}");
-                        if (item.HealthBouns != 0) statPart.Add($"체력 +{item.HealthBouns}");
+                        if (item.AttackBouns != 0) statPart.Add($"| 공격력 +{item.AttackBouns}");
+                        if (item.DefenseBouns != 0) statPart.Add($"| 방어력 +{item.DefenseBouns}");
+                        if (item.HealthBouns != 0) statPart.Add($"| 체력 +{item.HealthBouns}");
 
-
-
-                       // string statInfo = statPart.Count > 0 ? $"({string.Join(" / ", statPart)})" : "";
                         Console.Write($" {i + 1}.{status} {item.itemName} ");
 
                         if(statPart.Count>0)

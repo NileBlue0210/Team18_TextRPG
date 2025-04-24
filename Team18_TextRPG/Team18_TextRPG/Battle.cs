@@ -12,7 +12,6 @@ namespace Sparta_Team18_TextRPG
     {
         StringBuilder sb = new StringBuilder(); //문자빌더
 
-        Player player = new Player();
         MainMenu mainmenu = new MainMenu();
         BattleManager battleManager = new BattleManager();
         
@@ -29,7 +28,7 @@ namespace Sparta_Team18_TextRPG
             {
                 Console.WriteLine($"- Lv.{monsters[i].Level} {monsters[i].Name} | 체력: {monsters[i].HealthStatus()} | 공격력: {monsters[i].Attack}");
             }
-            player.ShowPlayerInfo();
+            GameManager.Instance.player.ShowPlayerInfo();
 
             Console.WriteLine("전투를 시작합니다.");
             Console.Write("\n");
@@ -65,7 +64,7 @@ namespace Sparta_Team18_TextRPG
         {
             Console.Clear();
 
-            PlayerTurn(player, monsters);
+            PlayerTurn(GameManager.Instance.player, monsters);
         }
 
         private void PlayerTurn(Player player, List<Monster> monsters)
@@ -90,7 +89,7 @@ namespace Sparta_Team18_TextRPG
                     Console.ResetColor();
                 }
 
-                player.ShowPlayerInfo();
+                GameManager.Instance.player.ShowPlayerInfo();
 
                 Console.WriteLine("공격할 몬스터를 선택하세요!\n");
                 Console.WriteLine("0.페이즈 넘기기");
@@ -110,7 +109,7 @@ namespace Sparta_Team18_TextRPG
                             Monster target = monsters[monsterIndex - 1];
 
 
-                            int damage = battleManager.GetDamageValue(player);
+                            int damage = battleManager.GetDamageValue();
                             int totalDamage = battleManager.GetHitDamageValue(target, damage);
 
                             target.MonsterHit(totalDamage); // 적: 피격 시 메서드 호출
@@ -132,8 +131,8 @@ namespace Sparta_Team18_TextRPG
                                 MonsterAttack(); // 몬스터 반격
                             }
 
-                            if (player.Health <= 0) // 플레이어 죽음
-                            if (player.TotalHp <= 0) // 플레이어 죽음
+                            if (GameManager.Instance.player.Health <= 0) // 플레이어 죽음
+                            if (GameManager.Instance.player.TotalHp <= 0) // 플레이어 죽음
                             {
                                 monsters.Clear();
                                 Console.ReadLine();
@@ -154,14 +153,14 @@ namespace Sparta_Team18_TextRPG
             {
                 if (monster.Health <= 0) continue; // 몬스터 체력: 0 되면 정지
 
-                if (player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
+                if (GameManager.Instance.player.Health <= 0) break; //플레이어 '체력: 0' 되면 정지
 
                 int damage = battleManager.GetDamageValue(monster); // 공격력 계산산
-                int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
-                player.TotalHp -= totalDamage;
+                int totalDamage = battleManager.GetHitDamageValue((int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
+                GameManager.Instance.player.TotalHp -= totalDamage;
 
                 Console.WriteLine($"{monster.Name} 공격! | -{damage} 피해");
-                Console.WriteLine($"플레이어 남은 체력: {player.TotalHp}");
+                Console.WriteLine($"플레이어 남은 체력: {GameManager.Instance.player.TotalHp}");
                 Console.ReadLine();
             }
             Console.Clear();

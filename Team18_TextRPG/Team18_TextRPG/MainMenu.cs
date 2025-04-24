@@ -86,13 +86,22 @@ namespace Sparta_Team18_TextRPG
 
                 if(inputValidator.CheckEmptyInput(nameAnswer))
                 {
-                    Console.WriteLine($"이름을 입력하시지 않으면 자동으로 {defaultName} 로 이름이 설정됩니다.");
+                    Console.Write("이름을 입력하시지 않으면 자동으로");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($" {defaultName}");
+                    Console.ResetColor();
+                    Console.Write("로 이름이 설정됩니다.");
                     nameAnswer = defaultName;
                 }
 
                 while (true)
                 {
-                    Console.WriteLine($"\n({nameAnswer}) 이 이름으로 하시겠습니까?");
+                    Console.Write("\n");
+                    Console.Write($"(");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($" {nameAnswer} ");
+                    Console.ResetColor();
+                    Console.WriteLine(") 이 이름으로 하시겠습니까?");
                     Console.WriteLine("1. 확정");
                     Console.WriteLine("2. 취소");
                     Console.Write(">> ");
@@ -101,7 +110,6 @@ namespace Sparta_Team18_TextRPG
                     if (checkAnswer == "1")
                     {
                         GameManager.Instance.player.Name = nameAnswer; 
-                        Console.WriteLine($"반갑습니다, {GameManager.Instance.player.Name}님!");
                         return;
                     }
                     else if (checkAnswer == "2")

@@ -10,12 +10,12 @@ namespace Team18_TextRPG
 {
     public class BattleManager
     {
-        public int GetDamageValue(Player player)
+        public int GetDamageValue()
         {
             // 공격력의 90% ~ 110% 사이의 랜덤 데미지 생성
             // to do: BattleManager같은 클래스를 만들어서 몬스터 데미지 시퀀스와 통합
-            int maxDamage = (int)(player.TotalAttack * 1.1f);
-            int minDamage = (int)(player.TotalAttack * 0.9f);
+            int maxDamage = (int)(GameManager.Instance.player.TotalAttack * 1.1f);
+            int minDamage = (int)(GameManager.Instance.player.TotalAttack * 0.9f);
 
             Random random = new Random();
 
@@ -38,11 +38,11 @@ namespace Team18_TextRPG
             return randomDamage;
         }
 
-        public int GetHitDamageValue(Player player, int damage)
+        public int GetHitDamageValue(int damage)
         {
             int result = 0;
 
-            result = damage - player.TotalDefense;
+            result = damage - GameManager.Instance.player.TotalDefense;
 
             if (result <= 0)
             {

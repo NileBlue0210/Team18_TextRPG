@@ -100,7 +100,10 @@ namespace Sparta_Team18_TextRPG
             Health -= damage; // 전투 테스트용(여기서 데미지 계산)
             if (Health > 0 && Status.Contains(MonsterStatus.IsAlive))
             {
-                Console.WriteLine($"{damage} 데미지!!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{damage}");
+                Console.ResetColor();
+                Console.WriteLine(" 데미지!!");
                 Console.ReadLine();
             }
             while (true)

@@ -4,7 +4,7 @@ namespace Sparta_Team18_TextRPG
 {
     public class EndStageView
     {
-        public void EndStage(bool isVictory, List<Monster>? monsters)
+        public void EndStage(bool isVictory, List<Monster> ?monsters = null)
         {
 
             ConvertClassCode convertClassCode = new ConvertClassCode();
@@ -12,6 +12,7 @@ namespace Sparta_Team18_TextRPG
 
             while (true)
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("배틀 결과\n\n\n\n\n");
                 Console.ResetColor();
@@ -20,7 +21,7 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("내 정보\n");
                 Console.WriteLine($"{GameManager.Instance.player.Name} ({convertClassCode.ConvertClassCodeToString(GameManager.Instance.player.ClassCode)})");
                 Console.WriteLine($"LV:");
-                Console.Write($"체력:");
+                Console.WriteLine($"체력:");
                 Console.WriteLine($"골드:");
 
                 //레벨,체력,골드 시간차 표기 연출
@@ -29,9 +30,16 @@ namespace Sparta_Team18_TextRPG
                 Console.SetCursorPosition(0, 3);
                 Console.WriteLine($"{result}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(0, 4);
-                Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
-                Thread.Sleep(1000);
+
+                if (monsters != null)
+                {
+                    Console.SetCursorPosition(0, 4);
+                    Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
+                    Thread.Sleep(1000);
+                    monsters.Clear();
+                }
+                else { }
+
                 Console.SetCursorPosition(4, 10);
                 Console.WriteLine($"{GameManager.Instance.player.PlayerLevel}");
                 Thread.Sleep(1000);
@@ -51,7 +59,6 @@ namespace Sparta_Team18_TextRPG
                 Console.ResetColor();
                 Console.Write("를 눌러 메인 메뉴로 돌아가실 수 있습니다.");
                 Console.SetCursorPosition(0, 23);
-                monsters.Clear();
 
                 string input = Console.ReadLine();
                 switch (input)

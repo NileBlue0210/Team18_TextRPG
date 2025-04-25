@@ -179,7 +179,7 @@ namespace Sparta_Team18_TextRPG
             Console.WriteLine("모든 적을 처치했습니다!");
             Thread.Sleep(1000);
             //int defeatedMonsterCount = monsters.Count(m => m.Status.Contains(MonsterStatus.Dead));
-            endStageView.EndStage(false, monsters);
+            endStageView.EndStage(true, monsters);
 
             //Console.WriteLine("계속 하려면 Enter를 누르세요.");
             //Console.Write(">> ");

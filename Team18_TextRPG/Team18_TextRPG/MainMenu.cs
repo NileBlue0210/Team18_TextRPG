@@ -87,9 +87,7 @@ namespace Sparta_Team18_TextRPG
                 if(inputValidator.CheckEmptyInput(nameAnswer))
                 {
                     Console.Write("이름을 입력하시지 않으면 자동으로");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write($" {defaultName}");
-                    Console.ResetColor();
+                    ChangeTextFormat.ChangeTextColor(defaultName, ConsoleColor.Green);
                     Console.Write("로 이름이 설정됩니다.");
                     nameAnswer = defaultName;
                 }

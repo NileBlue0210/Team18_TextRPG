@@ -10,7 +10,7 @@ namespace Team18_TextRPG
     public class ChangeTextFormat
     {
         // 텍스트 색을 변경해서 출력
-        public void ChangeTextColor(string text, ConsoleColor color)
+        public static void ChangeTextColor(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(text);

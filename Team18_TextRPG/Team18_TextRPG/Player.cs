@@ -139,20 +139,6 @@ namespace Sparta_Team18_TextRPG
             return randomDamage;
         }
 
-
-        public void PlayerHit()
-        {
-
-        }
-
-        public void PlayerDie()
-        {
-            playerState = PlayerStatus.Die;
-
-            Console.WriteLine("플레이어가 사망했습니다.");
-            // to do: 플레이어 사망 처리 추가
-        }
-
         public void ShowPlayerInfo()
         {
             ConvertClassCode classString = new ConvertClassCode();
@@ -166,5 +152,7 @@ namespace Sparta_Team18_TextRPG
             Console.WriteLine($"체력: {this.TotalHp}\n");
             Console.WriteLine("+--------------------------------+\n");
         }
+
+
     }
 }

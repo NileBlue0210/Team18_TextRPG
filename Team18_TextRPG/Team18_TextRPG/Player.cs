@@ -31,15 +31,16 @@ namespace Sparta_Team18_TextRPG
         private int gold = 1500; // 골드
 
 
-        public int Attack =>attack;
-        public int Defense =>defense;
-        public int Health =>health;
+        public int Attack => attack;
+        public int Defense => defense;
+        public int Health => health;
 
 
         public PlayerStatus playerState = PlayerStatus.Normal; // 플레이어 상태
 
         // 플레이어 스테이터스 제어용 프로퍼티
-        public string Name {
+        public string Name
+        {
             get
             {
                 return name;
@@ -81,7 +82,7 @@ namespace Sparta_Team18_TextRPG
             }
             set
             {
-                attack = value;
+                attack = value - EquipmentManager.GetAttackBonus();
             }
         }
 
@@ -94,7 +95,7 @@ namespace Sparta_Team18_TextRPG
             }
             set
             {
-                defense = value;
+                defense = value - EquipmentManager.GetDefenseBonus();
             }
         }
 
@@ -106,8 +107,8 @@ namespace Sparta_Team18_TextRPG
             }
             set
             {
-                health = value;
-                
+                health = value - EquipmentManager.GetHpBonus();
+
                 // 플레이어의 체력이 0이 되면 게임 오버 처리
                 if (health <= 0)
                 {

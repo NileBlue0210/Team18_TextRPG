@@ -10,8 +10,6 @@ namespace Team18_TextRPG
 {
     class InventoryUI
     {
-   
-
         public void ShowInventory()
         {
             string input;

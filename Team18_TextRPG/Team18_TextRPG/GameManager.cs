@@ -43,9 +43,9 @@ namespace Sparta_Team18_TextRPG
 
         public void GameOver()
         {
-            EndStageView endStageView = new EndStageView();
-
-            endStageView.EndStage(false);
+           EndStageView endStageView = new EndStageView();
+           Console.WriteLine("게임오버");
+           endStageView.EndStage(false);
         }
     }
 }

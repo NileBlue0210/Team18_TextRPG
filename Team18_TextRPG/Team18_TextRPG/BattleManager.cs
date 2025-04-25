@@ -38,6 +38,7 @@ namespace Team18_TextRPG
             return randomDamage;
         }
 
+        // 플레이어 유닛 피격 데미지 계산
         public int GetHitDamageValue(int damage)
         {
             int result = 0;
@@ -52,6 +53,7 @@ namespace Team18_TextRPG
             return result;
         }
 
+        // 몬스터 유닛 피격 데미지 계산
         public int GetHitDamageValue(Monster monster, int damage)
         {
             int result = 0;

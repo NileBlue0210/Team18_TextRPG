@@ -24,7 +24,7 @@ namespace Sparta_Team18_TextRPG
         private string name = "";    // 플레이어 이름
         private int playerLevel = 1;    // 플레이어 레벨 to do: 2자릿수로 표시되도록 01, 02 등..
         private int classCode = 1;  // 플레이어 직업 (0: 노비스, 1: 전사, 2: 마법사, 3: 궁수)
-        private int attack = 100;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
+        private int attack = 10;   // 공격력   // to do: 공, 방, 체는 나중에 float로 바꾸자
         private int defense = 5;  // 방어력
         private int health = 100;   // 체력
         private int maxHealth = 100; // 최대 체력

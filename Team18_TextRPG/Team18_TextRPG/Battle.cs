@@ -109,7 +109,6 @@ namespace Sparta_Team18_TextRPG
                         {
                             Monster target = monsters[monsterIndex - 1];
 
-
                             int damage = battleManager.GetDamageValue();
                             int totalDamage = battleManager.GetHitDamageValue(target, damage);
 
@@ -125,7 +124,6 @@ namespace Sparta_Team18_TextRPG
                             }
 
                             if (GameManager.Instance.player.Health <= 0) // 플레이어 죽음
-                            if (GameManager.Instance.player.TotalHp <= 0) // 플레이어 죽음
                             {
                                 GameManager.Instance.GameOver();
                                 Console.ReadLine();

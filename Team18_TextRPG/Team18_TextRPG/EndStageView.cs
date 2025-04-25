@@ -32,13 +32,13 @@ namespace Sparta_Team18_TextRPG
                 Console.SetCursorPosition(0, 4);
                 Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(4, 8);
+                Console.SetCursorPosition(4, 10);
                 Console.WriteLine($"{GameManager.Instance.player.PlayerLevel}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 9);
+                Console.SetCursorPosition(6, 11);
                 Console.Write($"{GameManager.Instance.player.Health}");
                 Thread.Sleep(1000);
-                Console.SetCursorPosition(6, 10);
+                Console.SetCursorPosition(6, 12);
                 Console.Write($"{GameManager.Instance.player.Gold}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 17);
@@ -47,22 +47,19 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("\n대상을 선택해주세요>>\n");
                 Console.WriteLine("-전투옵션-");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("0.");
+                Console.Write("0. ");
                 Console.ResetColor();
-                Console.Write(" 다음");
-
+                Console.Write("다음");
+                Console.SetCursorPosition(0, 23);
+                monsters.Clear();
 
                 string input = Console.ReadLine();
                 switch (input)
                 {
-                    case "0":
-                        MainMenu main = new MainMenu();
-                        main.DisplayMainMenu();
-                        return;
                     default:
-                        Console.Clear();
-                        Console.WriteLine("잘못된 입력입니다..");
-                        continue;
+                        MainMenu mainMenu = new MainMenu();
+                        mainMenu.DisplayMainMenu();
+                        return;
                 }
             }
         }

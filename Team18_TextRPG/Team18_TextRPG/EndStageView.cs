@@ -47,9 +47,9 @@ namespace Sparta_Team18_TextRPG
                 Console.WriteLine("\n대상을 선택해주세요>>\n");
                 Console.WriteLine("-전투옵션-");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("0. ");
+                Console.Write("아무 키");
                 Console.ResetColor();
-                Console.Write("다음");
+                Console.Write("를 눌러 메인 메뉴로 돌아가실 수 있습니다.");
                 Console.SetCursorPosition(0, 23);
                 monsters.Clear();
 

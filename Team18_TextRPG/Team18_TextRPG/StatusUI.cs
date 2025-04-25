@@ -41,7 +41,7 @@ namespace Sparta_Team18_TextRPG
 
                 Console.WriteLine($"\n 소지금: {GameManager.Instance.player.Gold} G");
 
-                Console.WriteLine("\n0. 나가기");
+                Console.WriteLine("\n아무 키를 눌러 메인 메뉴로 돌아가실 수 있습니다.");
                 Console.ReadLine();
             }
         }

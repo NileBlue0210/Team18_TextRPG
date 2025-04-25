@@ -71,7 +71,7 @@ namespace Sparta_Team18_TextRPG
         private void PlayerTurn(Player player, List<Monster> monsters)
         {
             string userInput = "";
-
+            
             Console.WriteLine($"\n총 {monsters.Count}마리의 몬스터가 등장!\n");
 
             while (monsters.Count > 0)
@@ -109,39 +109,37 @@ namespace Sparta_Team18_TextRPG
                         {
                             Monster target = monsters[monsterIndex - 1];
 
-
                             int damage = battleManager.GetDamageValue(player);
                             int totalDamage = battleManager.GetHitDamageValue(target, damage);
 
                             target.MonsterHit(totalDamage); // 적: 피격 시 메서드 호출
-                            
-
-                            if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
-                            {
-                                BattleEnd();
-                                return;
-                            }
 
                             if (target.Status.Contains(MonsterStatus.Dead))
                             {
-
                                 MonsterAttack();
                             }
                             else
                             {
                                 MonsterAttack(); // 몬스터 반격
                             }
-                            //if (player.Health <= 0) // 플레이어 죽음
-                            //{
-                            //    GameManager.Instance.GameOver();
-                            //    Console.ReadLine();
-                            //    return;
-                            //}
+
+                            if (player.Health <= 0) // 플레이어 죽음
+                            {
+                                GameManager.Instance.GameOver();
+                                Console.ReadLine();
+                                return;
+                            }
+                            else if (monsters.All(m => !m.Status.Contains(MonsterStatus.IsAlive))) //몬스터 노말 상태가 없으면 전투 종료
+                            {
+                                BattleEnd();
+                                return;
+                            }
                         }
                         break;
                 }
             }
-            BattleEnd(); // 전투 종료되면 마을로 돌아가기 실행.
+            //BattleEnd(); // 전투 종료되면 마을로 돌아가기 실행.
+            Program.ChangeView(EViewName.Main);
         }
 
         private void MonsterAttack()
@@ -157,40 +155,35 @@ namespace Sparta_Team18_TextRPG
                 int totalDamage = battleManager.GetHitDamageValue(player, (int)monster.Attack); // 피격자의 스테이터스에 의한 피해 데미지값 변경경
                 player.TotalHp -= totalDamage;
 
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 Console.Write($"\n적: {monster.Name} 공격!\t");
                 ChangeTextFormat.ChangeTextColor(totalDamage.ToString(), ConsoleColor.Red);
                 Console.WriteLine("");
-                Thread.Sleep(800);
+                Thread.Sleep(1000);
                 Console.Write($"이름: {player.Name} | 남은 체력: ");
                 ChangeTextFormat.ChangeTextColor(player.TotalHp.ToString(), ConsoleColor.Yellow);
                 Console.WriteLine("");
-
+                Thread.Sleep(1000);
+                //Console.ReadLine();
             }
-            if (player.Health <= 0)
-            {
-                monsters.Clear();
-                GameManager.Instance.GameOver();
-                
-            }
-            Console.WriteLine("\n계속 하려면 Enter를 입력하세요.");
-            Console.Write(">> ");
-            Console.ReadLine();
+            //if (player.Health <= 0)
+            //{
+            //    monsters.Clear();
+            //    GameManager.Instance.GameOver();  
+            //}
             return;
         }
 
         public void BattleEnd()
         {
-            Thread.Sleep(1000);
-            Console.Clear();
-            Console.WriteLine("모든 적을 처치했습니다! 마을로 돌아갑니다.");
+            Console.WriteLine("모든 적을 처치했습니다!");
             Thread.Sleep(1000);
             //int defeatedMonsterCount = monsters.Count(m => m.Status.Contains(MonsterStatus.Dead));
             endStageView.EndStage(false, monsters);
 
             //Console.WriteLine("계속 하려면 Enter를 누르세요.");
             //Console.Write(">> ");
-            //monsters.Clear(); // 리스트 초기화
+            //monsters.Clear(); // 리스트 초기화 >> EndStageView로 이동.
 
             //Console.ReadLine();
             return;

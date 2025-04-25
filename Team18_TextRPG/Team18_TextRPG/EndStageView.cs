@@ -32,10 +32,12 @@ namespace Sparta_Team18_TextRPG
 
             if (monsters != null)
             {
+
+                monsters.Clear();
                 Console.SetCursorPosition(0, 4);
                 Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.");
                 Thread.Sleep(1000);
-                monsters.Clear();
+                Console.SetCursorPosition(4, 10);
             }
             else { }
 
@@ -60,7 +62,6 @@ namespace Sparta_Team18_TextRPG
             Console.SetCursorPosition(0, 23);
 
             Console.ReadLine();
-
             Program.ChangeView(EViewName.Main);
         }
     }

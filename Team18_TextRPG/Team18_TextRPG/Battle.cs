@@ -114,14 +114,7 @@ namespace Sparta_Team18_TextRPG
 
                             target.MonsterHit(totalDamage); // 적: 피격 시 메서드 호출
 
-                            if (target.Status.Contains(MonsterStatus.Dead))
-                            {
-                                MonsterAttack();
-                            }
-                            else
-                            {
-                                MonsterAttack(); // 몬스터 반격
-                            }
+                            MonsterAttack(); // 몬스터 반격
 
                             if (GameManager.Instance.player.Health <= 0) // 플레이어 죽음
                             {
@@ -156,9 +149,10 @@ namespace Sparta_Team18_TextRPG
                 GameManager.Instance.player.TotalHp -= totalDamage;
 
                 //Thread.Sleep(1000);
-                Console.Write($"\n적: {monster.Name} 공격!\t");
+                Console.Write($"\n적: {monster.Name} 공격! ");
                 ChangeTextFormat.ChangeTextColor(totalDamage.ToString(), ConsoleColor.Red);
-                Console.WriteLine("");
+                Console.Write(" 데미지!!");
+                Console.WriteLine("\n");
                 Thread.Sleep(1000);
                 Console.Write($"이름: {GameManager.Instance.player.Name} | 남은 체력: ");
                 ChangeTextFormat.ChangeTextColor(GameManager.Instance.player.TotalHp.ToString(), ConsoleColor.Yellow);

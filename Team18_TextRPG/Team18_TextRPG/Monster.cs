@@ -90,10 +90,6 @@ namespace Sparta_Team18_TextRPG
             Console.WriteLine($"- 적: {Name} | 체력: {HealthStatus()} | 공격력: {Attack}");
         }
 
-        public void MonsterAttack()
-        {
-
-        }
         public void MonsterHit(int damage) //몬스터가 받는 데미지 계산은 여기서.
         {
             Console.Clear();
@@ -104,22 +100,31 @@ namespace Sparta_Team18_TextRPG
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write($"{damage}");
                 Console.ResetColor();
-                Console.WriteLine(" 데미지!!");
-                Console.ReadLine();
+                Console.WriteLine(" 데미지!!\n");
             }
             while (true)
             {
                 if (Health <= 0 && Status.Contains(MonsterStatus.IsAlive))
                 {
+                    Console.Write($"{Name}(을)를 공격! ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"{damage}");
+                    Console.ResetColor();
+                    Console.WriteLine(" 데미지!!\n");
+
                     Health = 0;
                     Status.Clear();
                     Status.Add(MonsterStatus.Dead);
+
                     Console.WriteLine($"{Name}을(를) 처치했다!");
                 }
                 else if (Status.Contains(MonsterStatus.Dead))
                 {
                     Console.WriteLine($"{Name}은(는) 이미 쓰러졌다! 몬스터들이 덤벼든다!");
                 }
+
+                Thread.Sleep(1000);
+
                 return;
             }
         }
